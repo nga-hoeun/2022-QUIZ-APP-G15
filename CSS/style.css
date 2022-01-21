@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
+:root {
+    --blue: #116CFF;
+    --white: #FFFFFC;
+    --red: #BF0606;
+    --green: #06BF19;
+    --titleFont: 'Montserrat', sans-serif;
+    --descripFont: 'Open Sans', sans-serif;
+  }
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: var(--descripFont);
+  }
+  .nav-bar {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 1rem;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+  .app-name{
+      width: 65%;
+      text-align: center;
+  }
+
+/* Button style  */
+.button-66 {
+  background-color: var(--blue);
+  border-radius: 5px;
+  border: 0;
+  box-shadow: rgba(1,60,136,.5) 0 -1px 3px 0 inset,rgba(0,44,97,.1) 0 3px 6px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inherit;
+  font-family: var(--descripFont);
+  font-size: 18px;
+  line-height: 24px;
+  margin: 0;
+  min-height: 50px;
+  min-width: 100px;
+  position: relative;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  transition: all .2s cubic-bezier(.22, .61, .36, 1);
+  margin: 0 auto;
+}
+
+.button-66:hover {
+  background-color: #065dd8;
+  transform: translateY(-2px);
+}
+
+#home-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#home-page .container-home{
+    margin-top: 2rem;
+    width: 50%;
+}
+.container-home h1{
+    font-size: 3rem;
+    font-family: var(--titleFont);
+    line-height: 2.5rem;
+}
+
+.container-home p{
+    margin: 1rem 0;
+    line-height: 1.5rem;
+}
