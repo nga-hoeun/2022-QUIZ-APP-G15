@@ -1,17 +1,17 @@
 let arrayOfContext=[{
-    picIcon:"images/Vector.png",
+    picIcon:"../images/Vector.png",
     title:"Test Your Knowledge",
-    imageBody:"image/quiz.png",
+    imageBody:"../image/quiz.png",
     text:"Quiz"
 },
 {
-    picIcon:"images/Vector (1).png",
+    picIcon:"../images/Vector (1).png",
     title:"Create Something New",
-    imageBody:"image/question.png",
+    imageBody:"../image/question.png",
     text:"Create",
 }];
 function displayOption(){ 
-    let container=document.getElementById("container");
+    let container=document.getElementById("home-page");
     container.style.display="none";
     for(let object of arrayOfContext){
         let card=document.createElement("div");
@@ -33,10 +33,10 @@ function displayOption(){
         let button=document.createElement("button");
         button.textContent=object.text;
         button.className="btnStart";
-        card.appendChild(buttonStart);
+        card.appendChild(button);
         container.appendChild(card);
     }
-    
+    document.body.appendChild(container);
 }
 let btn=document.getElementById("start");
 btn.addEventListener("click",displayOption);
