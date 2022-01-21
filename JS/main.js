@@ -1,8 +1,19 @@
-
+let arrayOfContext=[{
+    picIcon:"./IMG/Vector.png",
+    title:"Test Your Knowledge",
+    imageBody:"./IMG/quiz.png",
+    text:"Quiz"
+},
+{
+    picIcon:"./IMG/Vector (1).png",
+    title:"Create Something New",
+    imageBody:"./IMG/question.png",
+    text:"Create",
+}];
 function displayOption(){ 
     let container=document.getElementById("home-page");
-    let newContainer=document.createElement("div");
-    newContainer.className="newContainer";
+    let newContainer = document.createElement("div");
+    newContainer.setAttribute("class", "newContainer");
     container.style.display="none";
     for(let object of arrayOfContext){
         let card=document.createElement("div");
@@ -21,7 +32,7 @@ function displayOption(){
         let cardBody=document.createElement("img");
         cardBody.src=object.imageBody;
         cardBody.className="image";
-        card.appendChild(cardBody)
+        card.appendChild(cardBody);
         let button=document.createElement("button");
         button.textContent=object.text;
         button.className="btnStart";
