@@ -5,6 +5,7 @@
     --white: #FFFFFC;
     --red: #BF0606;
     --green: #06BF19;
+    --bgCard: #E5E5E5;
     --titleFont: 'Montserrat', sans-serif;
     --descripFont: 'Open Sans', sans-serif;
   }
@@ -18,7 +19,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      padding: 1rem;
+      padding: 0.5rem;
       box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   }
   .app-name{
@@ -27,7 +28,7 @@
   }
 
 /* Button style  */
-.button-66 {
+.button-66, .btnStart {
   background-color: var(--blue);
   border-radius: 5px;
   border: 0;
@@ -51,11 +52,17 @@
   transition: all .2s cubic-bezier(.22, .61, .36, 1);
   margin: 0 auto;
 }
-
-.button-66:hover {
+.btnStart {
+    border-radius: 50px;
+    min-height: 50px;
+    min-width: 200px;
+}
+.button-66,.btnStart:hover {
   background-color: #065dd8;
   transform: translateY(-2px);
 }
+
+
 
 #home-page {
     display: flex;
@@ -76,4 +83,33 @@
 .container-home p{
     margin: 1rem 0;
     line-height: 1.5rem;
+}
+
+/* Menu of Quiz App   */
+.newContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+.newContainer .card {
+    margin-top: 2rem;
+    background: var(--bgCard);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem;
+    line-height: 2rem;
+}
+.newContainer .card .card-title{
+    text-align: center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.newContainer .card .card-title .icon{
+   position: absolute;
+   margin-top: 17px;
+   margin-left: -100px;
+}
+.newContainer .card .card-title h3{
+    width: 150px;
 }
