@@ -1,16 +1,9 @@
-let arrayOfContext=[{
-    picIcon:"./IMG/Vector.png",
-    title:"Test Your Knowledge",
-    imageBody:"./IMG/quiz.png",
-    text:"Quiz"
-},
-{
-    picIcon:"./IMG/Vector (1).png",
-    title:"Create Something New",
-    imageBody:"./IMG/question.png",
-    text:"Create",
-}];
-function displayOption(){ 
+
+/**
+ * function to hide the first page content and show the quiz and the create questions page
+ * @param addEventListener("click")
+ */
+ function displayOption(){ 
     let container=document.getElementById("home-page");
     let newContainer = document.createElement("div");
     newContainer.setAttribute("class", "newContainer");
@@ -41,6 +34,15 @@ function displayOption(){
     }
     document.body.appendChild(newContainer);
 }
+let btn=document.getElementById("start");
+btn.addEventListener("click",displayOption);
+
+function displayQuestions(){
+    // Prevent default to happen
+    Event.preventDefault();
+    
+
+}
 
 
 let arrayOfContext=[{
@@ -55,8 +57,15 @@ let arrayOfContext=[{
     imageBody:"./IMG/question.png",
     text:"Create",
 }];
-let arrayOfQuestions=[];
+let arrayOfQuestions=[{
+    Questions: "What is the past simple of take?",
+    answers:{
+        a:"taken",
+        b:"took",
+        c:"taked",
+        d:"None of the above"
+    },
+    correctAnswer:"took"
+}];
 
 
-let btn=document.getElementById("start");
-btn.addEventListener("click",displayOption);
