@@ -28,7 +28,7 @@
   }
 
 /* Button style  */
-.button-66, .btnStart {
+.button-66, .btnStart, #sumiteAnswer,.saveToDate {
   background-color: var(--blue);
   border-radius: 5px;
   border: 0;
@@ -57,7 +57,13 @@
     min-height: 50px;
     min-width: 200px;
 }
-.button-66,.btnStart:hover {
+.saveToDate {
+    border-radius: 5px;
+    min-height: 40px;
+    min-width: 80px;
+    margin-top: 1rem;
+}
+.button-66,.btnStart,.saveToDate:hover {
   background-color: #065dd8;
   transform: translateY(-2px);
 }
@@ -98,6 +104,8 @@
     padding: 1rem;
     margin: 1rem;
     line-height: 2rem;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border-bottom: 2px solid var(--blue);
 }
 .newContainer .card .card-title{
     text-align: center;
@@ -112,4 +120,75 @@
 }
 .newContainer .card .card-title h3{
     width: 150px;
+}
+/* Create question  */
+.addContainer {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.addContainer .title{
+    line-height: 4rem;
+    font-family: var(--titleFont);
+}
+
+#inputForm{
+    background: var(--bgCard);
+    line-height: 2rem;
+    padding: 2rem;
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+#getQuestion, #getAnswer{
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 2px solid var(--blue);
+    outline: none;
+}
+
+
+.addContainer #showAnswers{
+    display: flex;
+    justify-content: space-evenly;
+    text-align: start;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.addContainer .showQuestionCon{
+    margin-top: 1rem;
+    background: var(--white);
+    border-left: 2px solid var(--blue);
+    margin-top: 1rem;
+}
+
+.questionContainer{
+    background: var(--bgCard);
+    font-family: var(--titleFont);
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.questionShow{
+    font-family: var(--titleFont);
+    padding: 10px;
+}
+
+.answers{
+    font-family: var(--titleFont);
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+.answerChoice label{
+    margin-left: 10px;
 }
