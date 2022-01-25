@@ -200,7 +200,10 @@ function addQuestion(){
   document.body.appendChild(newAddContainer);
 
   btnSubmit.addEventListener("input",addToArray);
-
+  
+  if (myQuestions.length > 0){
+    displayQuestion()
+  }
 }
 
 function alertMessage(){
@@ -398,10 +401,10 @@ function selectedAnswer(){
 
 function startQuiz(){
   index = 0;
-  let oldContainer = document.querySelector(".newContainer");
-  if (oldContainer!==null){
-    oldContainer.style.display = "none";
-  }
+  // let oldContainer = document.querySelector(".newContainer");
+  // if (oldContainer!==null){
+  //   oldContainer.style.display = "none";
+  // }
   if (myQuestions.length !== 0){
     if (document.querySelector(".addContainer")!==null){
       let oldContainer = document.querySelector(".addContainer");
