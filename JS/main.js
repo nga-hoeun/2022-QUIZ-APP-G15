@@ -9,7 +9,7 @@ const arrayOfContext=[{
     picIcon:"./IMG/Vector (1).png",
     title:"Create Something New",
     imageBody:"./IMG/question.png",
-    text:"Create",
+    text:"Create"
 }];
 
 let myQuestions = [
@@ -69,6 +69,15 @@ function displayOption(){
     if (oldContainer.length > 0){
       oldContainer[0].remove();
     }
+
+    let answerContainer = document.getElementsByClassName("questionContainer")
+    if (answerContainer.length !== 0){
+      for (let i=0;i<answerContainer.length;i++){
+        console.log(answerContainer[i]);
+        answerContainer[i].style.display = "none";
+        } 
+    }
+
     let displayQ = document.querySelector(".quizContainer");
     if (displayQ !== null){
       displayQ.style.display = "none";
@@ -260,7 +269,6 @@ function addToArray(event){
   }
 
   document.querySelector("#inputForm").appendChild(appearAllQuiz);
-
 }
 
 
@@ -284,7 +292,64 @@ function devideAnswer(a){
     }
   }
   return result;
-  console.log(result);
+}
+/**
+ * Display the quetions base on the input of the  user
+ */
+function displayQuestion(){
+  let allQuestions = document.querySelectorAll(".questionContainer");
+  for(let que of allQuestions){
+    que.parentNode.removeChild(que);
+  }
+  for(let i in myQuestions){
+    let questionContainer=document.createElement("div");
+    questionContainer.className="questionContainer";
+    let questionShow=document.createElement("span");
+    questionShow.textContent=Number(i)+1+" . "+myQuestions[i].question;
+    questionShow.className="questionShow";
+    questionContainer.appendChild(questionShow);
+    let answerCon=document.createElement("div");
+    answerCon.className="answers";
+    for(let j in myQuestions[i].answers){
+      let answerChoice = document.createElement("div");
+      answerChoice.className="answerChoice";
+      let choice = document.createElement("input");
+      choice.setAttribute("type", "radio");
+      choice.setAttribute("name", "answerSelect"+i);
+      choice.setAttribute("value", j);
+      let label=document.createElement("label");
+      label.textContent=myQuestions[i].answers[j]
+      if(myQuestions[i].correctAnswer==choice.value){
+        choice.checked = true;
+      }
+      answerChoice.appendChild(choice);
+      answerChoice.appendChild(label);
+      answerCon.appendChild(answerChoice);
+    }
+    let edition = document.createElement("div");
+    edition.className="edition"
+    let edit=document.createElement("img");
+    edit.className="imageEdit";
+    edit.src="./IMG/edit.png";
+    edition.appendChild(edit);
+    let deleted = document.createElement("img");
+    deleted.className="imageDelete";
+    deleted.src="./IMG/delete.png";
+    edition.appendChild(deleted);
+    answerCon.appendChild(edition);
+    questionContainer.appendChild(answerCon)
+    document.body.appendChild(questionContainer)
+  }
+  document.body.addEventListener("click", deleteQuestion)
+}
+
+function deleteQuestion(event){
+  if(event.target.className==="imageDelete"){
+    console.log(event.target);
+    event.target.parentElement.parentElement.parentElement.remove();
+    let indexToRemove=document.getElementsByClassName("questionShow");
+    myQuestions.splice(Number(indexToRemove[0])-1,1);
+  }
 }
 
 // Button Save Data 
@@ -302,6 +367,7 @@ function addItemToData(event){
     console.log(selectedAnswer());
     temp.correctAnswer = answered;
     myQuestions.push(temp);
+    displayQuestion();
     console.log(myQuestions);
     console.log(answered);
     temp = {};
@@ -326,7 +392,8 @@ function selectedAnswer(){
   for (let a of allRadioAnswer){
     if(a.checked){
       return true;
-  }}
+    }
+  }
 }
 
 function startQuiz(){
@@ -358,6 +425,7 @@ function loadData(){
     oldContainer[0].remove();
   }
   document.querySelector(".start").style.display = "none";
+
   let newContainer = document.createElement("div");
   newContainer.setAttribute("class", "quizContainer");
   document.body.appendChild(newContainer);
@@ -411,6 +479,14 @@ function nextBtn(){
 
 
 function backBtn(){
+  let answerContainer = document.getElementsByClassName("questionContainer")
+  if (answerContainer.length !== 0){
+    for (let i=0;i<answerContainer.length;i++){
+      console.log(answerContainer[i]);
+      answerContainer[i].style.display = "none";
+      } 
+  }
+
   checkAnswer = false;
   clicked = false;
   let oldBtn = document.getElementsByClassName("backBtn")
@@ -522,10 +598,6 @@ if (index === myQuestions.length){
 
 let btn=document.getElementById("start");
 btn.addEventListener("click",displayOption);
-
-// let btnSubmit = document.querySelector(".btnSubmitResult");
-// btnSubmit.addEventListener("click", displayOption)
-
 
 
 

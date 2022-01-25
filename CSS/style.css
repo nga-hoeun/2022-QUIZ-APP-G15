@@ -377,3 +377,43 @@
 .finalResult .itemResultIn{
     border-left: 10px solid var(--red);
 }
+.questionContainer{
+    background: var(--bgCard);
+    font-family: var(--titleFont);
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.questionShow{
+    font-family: var(--titleFont);
+    padding: 10px;
+}
+
+.answers{
+    font-family: var(--titleFont);
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.answerChoice label{
+    margin-left: 10px;
+}
+.edition{
+    text-align: center;
+    margin-top: -10px;
+}
+.edition #imageEdit
+{
+    margin-right: 15px;
+}
+.edition #imageEdit,
+.edition #imageDelete
+{
+    cursor: pointer;
+}
+
