@@ -226,6 +226,9 @@ function devideAnswer(a){
   }
   return result;
 }
+/**
+ * Display the quetions base on the input of the  user
+ */
 function displayQuestion(){
   let allQuestions = document.querySelectorAll(".questionContainer");
   for(let que of allQuestions){
@@ -251,16 +254,35 @@ function displayQuestion(){
       label.textContent=myQuestions[i].answers[j]
       if(myQuestions[i].correctAnswer==choice.value){
         choice.checked = true;
-        choice.style.backgroundColor="green";
       }
       answerChoice.appendChild(choice);
       answerChoice.appendChild(label);
       answerCon.appendChild(answerChoice);
     }
+    let edition = document.createElement("div");
+    edition.className="edition"
+    let edit=document.createElement("img");
+    edit.className="imageEdit";
+    edit.src="./IMG/edit.png";
+    edition.appendChild(edit);
+    let deleted = document.createElement("img");
+    deleted.className="imageDelete";
+    deleted.src="./IMG/delete.png";
+    edition.appendChild(deleted);
+    answerCon.appendChild(edition);
     questionContainer.appendChild(answerCon)
-    document.body.appendChild(questionContainer);
+    document.body.appendChild(questionContainer)
   }
+  document.body.addEventListener("click", deleteQuestion)
+}
 
+function deleteQuestion(event){
+  if(event.target.className==="imageDelete"){
+    console.log(event.target);
+    event.target.parentElement.parentElement.parentElement.remove();
+    let indexToRemove=document.getElementsByClassName("questionShow");
+    myQuestions.splice(Number(indexToRemove[0])-1,1);
+  }
 }
 
 // Button Save Data 
@@ -306,6 +328,5 @@ function resetData(){
 
 let btn=document.getElementById("start");
 btn.addEventListener("click",displayOption);
-
 
 

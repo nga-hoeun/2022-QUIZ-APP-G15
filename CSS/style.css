@@ -188,7 +188,22 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
+    text-align: center;
 }
 .answerChoice label{
     margin-left: 10px;
 }
+.edition{
+    text-align: center;
+    margin-top: -10px;
+}
+.edition #imageEdit
+{
+    margin-right: 15px;
+}
+.edition #imageEdit,
+.edition #imageDelete
+{
+    cursor: pointer;
+}
+
