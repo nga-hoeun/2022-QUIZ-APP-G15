@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2022-QUIZ-APP-G15</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
@@ -15,6 +16,8 @@
         <div class="app-name">
             <h1>2022-QUIZ-APP-G15</h1>
         </div>
+         <!-- start  -->
+    <button class="start"><i class="fa fa-play-circle-o"></i></button>
     </div>
     <div id="home-page">
         <div class="container-home">
@@ -23,6 +26,36 @@
             <button id="start" class="button-66" role="button">Start</button>
         </div>
     </div>
+
+
+    <div class="info">
+        <h4>Tips</h4><hr>
+        <p>You need to follow all of this instruction below:</p>
+        <ol>
+            <li>You must input your question in input type!</li>
+            <li>You have 4 answers to input, so in each answer separate by a ",". If you want to input a space, you need to use a "-".</li>
+        </ol>
+    </div>
+    <div class="finalResult">
+        <div class="title">
+            <i class="fa fa-star"></i>
+            <h3>Result</h3>
+            <i class="fa fa-star"></i>
+        </div>
+        <div class="itemResult">Correct: 10</div>
+        <div class="itemResultIn">Incorrect: 0</div>
+        <button class="showCorrection">Corrections</button>
+    </div>
+
+    <!-- Button -->
+    <!-- next -->
+    <!-- <button class="nextQ"><i class="fa fa-arrow-circle-o-right"></i></button> -->
+    <!-- back  -->
+    <!-- <button class="backBtn"><i class="fa fa-times"></i></button> -->
+    <!-- submit  -->
+    <button class="btnSubmitResult"><i class="fa fa-check-circle-o"></i></button>
+    
     <script src="js/main.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>
