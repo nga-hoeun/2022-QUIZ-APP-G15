@@ -60,13 +60,10 @@ const arrayOfContext=[{
 document.querySelector(".editFormContainer").style.display = "none";
 
 document.querySelector(".finalResult").style.display = "none";
-// document.querySelector(".start").style.display = "none";
+
 document.querySelector(".saveEditBtn").style.display = "none";
 
-// document.querySelector(".finalResult").style.display = "none";
 document.querySelector(".btnSubmitResult").style.display = "none";
-// document.querySelector(".nextQ").style.display = "none";
-// document.querySelector(".backBtn").style.display = "none";
 
 // Come back to home page ======================
 let logo = document.querySelector('.logo')
@@ -101,11 +98,6 @@ function displayOption(){
     if (displayMainEdit !== null){
       displayMainEdit.style.display = "none";
     } 
-
-    // let oldContainerF = document.getElementsByClassName("addContainer")
-    // if (oldContainerF.length > 0){
-    //   oldContainerF[0].remove();
-    // }
 
     let btnNext = document.querySelector(".nextQ");
     if (btnNext !== null){
@@ -148,8 +140,6 @@ function displayOption(){
         card.appendChild(button);
         newContainer.appendChild(card);
     }
-    // let addQuiz = document.getElementsByClassName("btnStart")[1]
-    // addQuiz.addEventListener("click", addQuestion)
 
     document.body.appendChild(newContainer);
     let btnStart = document.getElementsByClassName("btnStart")[0];
@@ -176,7 +166,6 @@ addQuizCon.style.display = "none";
 document.querySelector(".mainContainerEdit").appendChild(addQuizCon);
 
 let optionCon = document.querySelector(".newContainer");
-// optionCon.style.display = "none";
 
 function addQuestion(){
   // style to show the page ==============
@@ -212,12 +201,10 @@ function addToArray(){
 
   if (correctAn!=="" && checkValidationQ()!==false && questionValue.value !=="" && checkValidationAnInput()!==true && checkValidationAnDou()!==true){
     swal("Good job!", "You added the Question", "success");
-    // event.preventDefault();  
     temp.question = questionValue.value;
     temp.answers = {};
 
     let answerVaule = document.getElementsByClassName("getAnswer")
-    // listOfAnswers = devideAnswer(answerValue);
     temp.answers.a = answerVaule[0].value;
     temp.answers.b = answerVaule[1].value;
     temp.answers.c = answerVaule[2].value;
@@ -232,13 +219,13 @@ function addToArray(){
     resetData();
 
   }else{
-    if(checkValidationQ()===false){
+    if(checkValidationQ(questionValue)===false){
       swal("Oops...!", "You had add this question before!", "error");
     }else if(questionValue.value ===""){
       swal("Oops...!", "Please input your question!", "error");
-    }else if(checkValidationAnInput()===true){
-      swal("Oops...!", "Please input all of your answers!!!!!!!!!!!!!", "error");
-    }else if(checkValidationAnDou()===true){
+    }else if(checkValidationAnInput(answerVaule)===true){
+      swal("Oops...!", "Please input all of your answers!", "error");
+    }else if(checkValidationAnDou(answerVaule)===true){
       swal("Oops...!", "You have the duplicate answers!", "error");
     }else{
       swal("Oops...!", "You didn't select the right answer yet!", "error");
@@ -259,8 +246,7 @@ function checkValidationQ(){
   }
 }
 
-function checkValidationAnInput(){
-  let answerVaule = document.getElementsByClassName("getAnswer")
+function checkValidationAnInput(answerVaule){
   for (let i in answerVaule){
     if(answerVaule[i].value === ""){
       return true
@@ -269,7 +255,7 @@ function checkValidationAnInput(){
     }
 }
 
-function checkValidationAnDou(){
+function checkValidationAnDou(answerVaule){
   let list = [];
   for (let i=0;i<answerVaule.length;i++){
     list.push(answerVaule[i].value)
@@ -277,10 +263,6 @@ function checkValidationAnDou(){
   console.log(list);
   return new Set(list).size !== list.length
 }
-
-
-
-
 
 
 function devideAnswer(a){
@@ -312,35 +294,33 @@ let page_editQ = document.querySelector(".mainContainerEdit");
 page_editQ.style.display = "none";
 
 function displayQuestion(){
-  // document.querySelector(".start").style.display = "";
-  // document.querySelector(".edit").style.display = "";
-  document.querySelector(".editFormContainer").style.display = "none";
-
-  page_editQ.style.display = "";
-  addQuizCon.style.display = "none";
-  document.querySelector(".mainContainerQ").style.display = "";
-
-  document.getElementById("edit-mode").style.display = "none";
-  // document.getElementById("edit-mode").style.backgroundColor = "grey";
-  
-  // hide style prevouse page ==============================
-  // style to show the page ==============
-  document.getElementById("add-mode").style.display = "";
-  document.getElementById("add-mode").style.backgroundColor = "#116CFF";
-
-  document.querySelector('.newContainer').style.display = "none";
-  let allQuestions = document.querySelector(".mainContainerQ")
-
-  let oldQ = document.getElementsByClassName("manageCon");
-  if (oldQ.length > 0){
-    oldQ[0].remove();
-  }
-  let mainCon = document.createElement("div");
-  mainCon.setAttribute("class", "manageCon");
-  allQuestions.appendChild(mainCon);
-
   if (localStorage.length>0){
     myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
+    document.querySelector(".editFormContainer").style.display = "none";
+  
+    page_editQ.style.display = "";
+    addQuizCon.style.display = "none";
+    document.querySelector(".mainContainerQ").style.display = "";
+  
+    document.getElementById("edit-mode").style.display = "none";
+    // document.getElementById("edit-mode").style.backgroundColor = "grey";
+    
+    // hide style prevouse page ==============================
+    // style to show the page ==============
+    document.getElementById("add-mode").style.display = "";
+    document.getElementById("add-mode").style.backgroundColor = "#116CFF";
+  
+    document.querySelector('.newContainer').style.display = "none";
+    let allQuestions = document.querySelector(".mainContainerQ")
+  
+    let oldQ = document.getElementsByClassName("manageCon");
+    if (oldQ.length > 0){
+      oldQ[0].remove();
+    }
+    let mainCon = document.createElement("div");
+    mainCon.setAttribute("class", "manageCon");
+    allQuestions.appendChild(mainCon);
+  
     for(let i in myQuestions){
       let questionContainer=document.createElement("div");
       questionContainer.className="questionContainer";
@@ -361,51 +341,36 @@ function displayQuestion(){
         label.textContent=myQuestions[i].answers[j]
         if(myQuestions[i].correctAnswer==choice.value){
           choice.checked = true;
+        }else{
+          choice.disabled=true
         }
-        answerChoice.appendChild(choice);
-        answerChoice.appendChild(label);
-        answerCon.appendChild(answerChoice);
+        let edition = document.createElement("div");
+        edition.className="edition"
+        let edit=document.createElement("img");
+        edit.className="imageEdit";
+        edit.src="./IMG/edit.png";
+        edition.appendChild(edit);
+        let deleted = document.createElement("img");
+        deleted.className="imageDelete";
+        deleted.src="./IMG/delete.png";
+        edition.appendChild(deleted);
+        answerCon.appendChild(edition);
+        questionContainer.appendChild(answerCon);
+        mainCon.appendChild(questionContainer);
       }
-      let edition = document.createElement("div");
-      edition.className="edition"
-      let edit=document.createElement("img");
-      edit.className="imageEdit";
-      edit.src="./IMG/edit.png";
-      edition.appendChild(edit);
-      let deleted = document.createElement("img");
-      deleted.className="imageDelete";
-      deleted.src="./IMG/delete.png";
-      edition.appendChild(deleted);
-      answerCon.appendChild(edition);
-      questionContainer.appendChild(answerCon);
-      mainCon.appendChild(questionContainer);
+      
     }
-    
+  
   }
-    document.body.addEventListener("click", deleteQuestion)
-    document.body.addEventListener("click", editQuestion)
+  document.body.addEventListener("click", deleteQuestion)
+  document.body.addEventListener("click", editQuestion)
 }
-
-// function getIndexToDel(){
-//   let els=document.getElementsByClassName("imageDelete");
-//   for(i=0; i < els.length; i++) {
-//     els[i].index = i;
-//     els[i].addEventListener('mouseover', function(e) {
-//       // e.target.innerHTML = e.target.index;
-//       console.log(e.target.index);
-//       indexOfQ = e.target.index
-//     }, false);
-//   }
-// }
-
-
 
 function deleteQuestion(event){
   let els=document.getElementsByClassName("imageDelete");
   for(i=0; i < els.length; i++) {
     els[i].index = i;
     els[i].addEventListener('mouseover', function(e) {
-      // e.target.innerHTML = e.target.index;
       console.log(e.target.index);
       indexOfQ = e.target.index
     }, false);
@@ -436,75 +401,78 @@ function deleteQuestion(event){
   }
 }
 
+let edited={question:"",answers:{a:"",b:"",c:"",d:""},correctAnswer:""}
 function editQuestion(event){
   let els=document.getElementsByClassName("imageEdit");
   for(i=0; i < els.length; i++) {
     els[i].index = i;
     els[i].addEventListener('mouseover', function(e) {
-      // e.target.innerHTML = e.target.index;
       console.log(e.target.index);
       indexOfQ = e.target.index
     }, false);
   }
 
   if(event.target.className==="imageEdit"){
-
-    document.querySelector(".editFormContainer").style.display = "";
-    document.querySelector(".mainContainerEdit").style.display = "none";
-    document.querySelector(".cancel2").addEventListener("click", displayQuestion)
-
+    
     console.log(event.target);
     let answers = event.target.parentElement.parentElement.parentElement.firstChild.nextSibling.children;
     console.log(answers);
-    let textAn = "";
-    for (let i in myQuestions[indexOfQ].answers){
-      textAn += myQuestions[indexOfQ].answers[i] + ",";
-    }
-    // document.querySelector(".manageForm");
-    // console.log(textAn);
-    let question = document.getElementById("getQuestion");
-    let answer = document.getElementById("getAnswer");
-    
-    // showEditForm()
-    // document.querySelector(".showAnswer").style.display = "";
+    let question = document.getElementById("getQuestionEdit");
+    question.value = myQuestions[indexOfQ].question;
+    let answer = document.getElementsByClassName("getAnswerEdit");
+    answer[0].value=myQuestions[indexOfQ].answers.a
+    answer[1].value=myQuestions[indexOfQ].answers.b
+    answer[2].value=myQuestions[indexOfQ].answers.c
+    answer[3].value=myQuestions[indexOfQ].answers.d
+
+    document.querySelector(".editFormContainer").style.display = "";
+    document.querySelector(".mainContainerEdit").style.display = "none";
+    document.querySelector(".cancel2").addEventListener("click", saveWhenCancel)
+    document.querySelector(".save").addEventListener("click",editMyQuestion)    
   }
 }
-
-function showEditForm(){
-  let formQA = document.getElementById("inputForm");
-
-  let appearAllQuiz = document.createElement("div");
-  appearAllQuiz.setAttribute("class", "showAnswer");
-  formQA.appendChild(appearAllQuiz);
-
-  let appearQuestion = document.createElement("p");
-  appearQuestion .setAttribute("class", "showQuestionCon");
-  appearQuestion .textContent = temp.question;
-  appearAllQuiz.appendChild(appearQuestion);
-
-  let valueFromAnswer = document.getElementById("getAnswer").value;
-  let valueFromQues = document.getElementById("getQuestion").value;
-  if (valueFromAnswer!=="" && valueFromQues !==""){
-    let appearAnswers = document.createElement("div");
-    appearAnswers.setAttribute("id", "showAnswers")
-
-    let btnToSave = document.querySelector(".saveEditBtn");
-    btnToSave.style.display = ""
-
-    appearAllQuiz.appendChild(appearAnswers)
-  
-    for (let i in myQuestions[indexOfQ].answers){
-      let eachAnswer = document.createElement("input");
-      eachAnswer.setAttribute("type", "radio");
-      eachAnswer.setAttribute("name", "answerSelect");
-      eachAnswer.setAttribute("value", i);
-      let text = document.createElement("span");
-      text.textContent = myQuestions[indexOfQ].answers[i];
-      console.log(myQuestions[indexOfQ].answers[i]);
-      appearAnswers.appendChild(eachAnswer);
-      appearAnswers.appendChild(text);
+/**
+ * When you start editing and want to cancel your edit, the list should have the original
+ * questions and the correct answer.
+ */
+function saveWhenCancel(){
+  edited.question=myQuestions[indexOfQ].question;
+  edited.answers["a"]=myQuestions[indexOfQ].answers.a;
+  edited.answers["b"]=myQuestions[indexOfQ].answers.b;
+  edited.answers["c"]=myQuestions[indexOfQ].answers.c;
+  edited.answers["d"]=myQuestions[indexOfQ].answers.d;
+  edited.correctAnswer=myQuestions[indexOfQ].correctAnswer;
+  myQuestions[indexOfQ]=edited;
+  displayQuestion();
+}
+/**
+ * Edit the questions
+ */
+function editMyQuestion(){
+  let question = document.getElementById("getQuestionEdit");
+  let answer = document.getElementsByClassName("getAnswerEdit");
+  edited.question=question.value;
+  edited.answers["a"]=answer[0].value;
+  edited.answers["b"]=answer[1].value;
+  edited.answers["c"]=answer[2].value;
+  edited.answers["d"]=answer[3].value;
+  let radioCorrect = document.getElementsByName("answer");
+  for(let indexRadio in radioCorrect){
+    if(radioCorrect[indexRadio].checked===true){
+      edited.correctAnswer=radioCorrect[indexRadio].value
     }
-    appearAllQuiz.appendChild(btnToSave)
+  }
+  console.log(myQuestions)
+  if(edited.question===""){
+    swal("Oops...!", "Question can't be empty", "error");
+  }else if(edited.answers.a===""||edited.answers.b===""||edited.answers.c===""||edited.answers.d===""){
+    swal("Oops...!", "Answers can't be empty", "error");
+  }else if(radioCorrect[0].checked===false&&radioCorrect[1].checked===false&&radioCorrect[2].checked===false&&radioCorrect[3].checked===false){
+    swal("Oops...!", "Correct answers cannot be unselected", "error");
+  }else{
+    swal("Good job!", "You edited the Question", "success");
+    myQuestions[indexOfQ]=edited
+    displayQuestion();
   }
 }
 
@@ -556,20 +524,6 @@ function addItemToData(event){
   }
   
 }
-// Create Menu bar ++++++++++++++++++++++++++++++++++++++++++
-// function createMenu(){
-//   let btnStart = document.querySelector(".start");
-//   btnStart.style.display = "";
-//   btnStart.addEventListener("click", startQuiz);
-// }
-
-
-// let btnStart = document.querySelector(".start");
-// let btnEdit = document.querySelector(".edit");
-// btnEdit.style.display = "none";
-// btnStart.style.display = "none";
-// btnStart.addEventListener("click", startQuiz);
-
 function selectedAnswer(){
   let allRadioAnswer = document.getElementsByName('answerSelect')
   for (let a of allRadioAnswer){
@@ -662,7 +616,6 @@ function nextBtn(){
   btnNext.addEventListener("click", nextQuestion)
 }
 
-
 function btnShowResult(){
   clicked = false;
   checkAnswer = false;
@@ -674,7 +627,6 @@ function btnShowResult(){
 function nextQuestion(){
   if(myQuestions.length === index+1 && checkAnswer===true){
     document.querySelector(".nextQ").style.display = "none";
-    // btnShowResult();
     clicked = true;
   }
   if(myQuestions.length !== index+1 && checkAnswer===true){
@@ -686,7 +638,6 @@ function nextQuestion(){
 
 
 function checkedAnswer(event){
-  // getIndexToDel()
   if (clicked === false){
     checkAnswer = true;
     let toCheck = event.target.className;
@@ -694,7 +645,6 @@ function checkedAnswer(event){
     if (toCheck === "answer"){
       if (index+1 == myQuestions.length){
         btnShowResult()
-        // btnSubmit.style.display = "";
         document.querySelector(".nextQ").style.display = "none";
       }
     // Add button grey when can click +++++++++++++++++++++++++++++++++++++ 
@@ -725,7 +675,6 @@ function checkedSentenceA(sen){
   return str[0]
 }
 
-// function checkNumOfIndex()
 function checkAnswerInData(getAn){
   if (myQuestions[index].correctAnswer == getAn){
     return true;
@@ -764,7 +713,7 @@ function saveMyQuestions(data){
 }
 
 function sumScore(data){
-  return score/myQuestions.length * 100 + "%"
+  return Math.round(score/myQuestions.length * 100) + "%"
 }
 
 
