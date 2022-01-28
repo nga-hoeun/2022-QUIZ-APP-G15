@@ -7,7 +7,7 @@ const arrayOfContext=[{
 },
 {
     picIcon:"./IMG/Vector (1).png",
-    title:"Create Something New",
+    title:"Edit or Add Quiz Form",
     imageBody:"./IMG/question.png",
     text:"Edit"
 }];
@@ -57,6 +57,9 @@ let myQuestions = [
 
 // let myQuestions = [];
 
+// Form Edit alert =====================================
+document.querySelector(".editFormContainer").style.display = "none";
+
 document.querySelector(".finalResult").style.display = "none";
 // document.querySelector(".start").style.display = "none";
 document.querySelector(".saveEditBtn").style.display = "none";
@@ -65,6 +68,11 @@ document.querySelector(".saveEditBtn").style.display = "none";
 document.querySelector(".btnSubmitResult").style.display = "none";
 // document.querySelector(".nextQ").style.display = "none";
 // document.querySelector(".backBtn").style.display = "none";
+
+// Come back to home page ======================
+let logo = document.querySelector('.logo')
+logo.addEventListener("click", displayOption)
+
 function displayOption(){ 
     index = 0;
 
@@ -72,6 +80,9 @@ function displayOption(){
     if (oldContainer.length > 0){
       oldContainer[0].remove();
     }
+    
+    document.querySelector(".editFormContainer").style.display = "none";
+
 
     let answerContainer = document.getElementsByClassName("questionContainer")
     if (answerContainer.length !== 0){
@@ -84,6 +95,11 @@ function displayOption(){
     let displayQ = document.querySelector(".quizContainer");
     if (displayQ !== null){
       displayQ.style.display = "none";
+    } 
+
+    let displayMainEdit = document.querySelector(".mainContainerEdit");
+    if (displayMainEdit !== null){
+      displayMainEdit.style.display = "none";
     } 
 
     // let oldContainerF = document.getElementsByClassName("addContainer")
@@ -164,18 +180,20 @@ let optionCon = document.querySelector(".newContainer");
 
 function addQuestion(){
   // style to show the page ==============
-  document.getElementById("add-mode").style.color = "#065dd8";
-  document.getElementById("add-mode").style.borderBottom = "2px solid #065dd8";
+  document.getElementById("add-mode").style.color = "";
+  document.getElementById("add-mode").style.backgroundColor = "grey";
 
   // Disable style from edit page 
   document.getElementById("edit-mode").style.color = "";
-  document.getElementById("edit-mode").style.borderBottom = "none";
+  document.getElementById("edit-mode").style.backgroundColor = "#116CFF";
+
 
   document.querySelector(".mainContainerQ").style.display = "none";
   addQuizCon.style.display = "";
   document.querySelector(".newContainer").style.display = "none"
   document.querySelector(".add").addEventListener("click", addToArray)
-  document.querySelector(".cancel").addEventListener("click", resetData)
+  document.getElementsByClassName("cancel")[0].addEventListener("click", displayQuestion)
+  // document.getElementsByClassName("cancel")[1].addEventListener("click", displayQuestion)
 }
 
 let questionValue = document.getElementById("getQuestion");
@@ -283,20 +301,22 @@ function devideAnswer(a){
 // Show list of question have in array ++++++++++++++++++++++++++
 let page_editQ = document.querySelector(".mainContainerEdit");
 page_editQ.style.display = "none";
+
 function displayQuestion(){
-  document.querySelector(".start").style.display = "";
-  document.querySelector(".edit").style.display = "";
+  // document.querySelector(".start").style.display = "";
+  // document.querySelector(".edit").style.display = "";
+  document.querySelector(".editFormContainer").style.display = "none";
 
   page_editQ.style.display = "";
   addQuizCon.style.display = "none";
   document.querySelector(".mainContainerQ").style.display = "";
-  document.getElementById("edit-mode").style.color = "#065dd8";
-  document.getElementById("edit-mode").style.borderBottom = "2px solid #065dd8";
+
+  document.getElementById("edit-mode").style.color = "";
+  document.getElementById("edit-mode").style.backgroundColor = "grey";
   
   // hide style prevouse page ==============================
   // style to show the page ==============
-  document.getElementById("add-mode").style.color = "";
-  document.getElementById("add-mode").style.borderBottom = "";
+  document.getElementById("add-mode").style.backgroundColor = "#116CFF";
 
   document.querySelector('.newContainer').style.display = "none";
   let allQuestions = document.querySelector(".mainContainerQ")
@@ -412,6 +432,11 @@ function editQuestion(event){
   }
 
   if(event.target.className==="imageEdit"){
+
+    document.querySelector(".editFormContainer").style.display = "";
+    document.querySelector(".mainContainerEdit").style.display = "none";
+    document.querySelector(".cancel2").addEventListener("click", displayQuestion)
+
     console.log(event.target);
     let answers = event.target.parentElement.parentElement.parentElement.firstChild.nextSibling.children;
     console.log(answers);
@@ -419,12 +444,12 @@ function editQuestion(event){
     for (let i in myQuestions[indexOfQ].answers){
       textAn += myQuestions[indexOfQ].answers[i] + ",";
     }
-    console.log(textAn);
+    // document.querySelector(".manageForm");
+    // console.log(textAn);
     let question = document.getElementById("getQuestion");
     let answer = document.getElementById("getAnswer");
-    question.value = myQuestions[indexOfQ].question;
-    answer.value = textAn;
-    showEditForm()
+    
+    // showEditForm()
     // document.querySelector(".showAnswer").style.display = "";
   }
 }
@@ -525,11 +550,11 @@ function addItemToData(event){
 // }
 
 
-let btnStart = document.querySelector(".start");
-let btnEdit = document.querySelector(".edit");
-btnEdit.style.display = "none";
-btnStart.style.display = "none";
-btnStart.addEventListener("click", startQuiz);
+// let btnStart = document.querySelector(".start");
+// let btnEdit = document.querySelector(".edit");
+// btnEdit.style.display = "none";
+// btnStart.style.display = "none";
+// btnStart.addEventListener("click", startQuiz);
 
 function selectedAnswer(){
   let allRadioAnswer = document.getElementsByName('answerSelect')
@@ -562,8 +587,8 @@ function loadData(){
   if (oldContainer.length > 0){
     oldContainer[0].remove();
   }
-  document.querySelector(".start").style.display = "none";
-  document.querySelector(".edit").style.display = "none";
+  // document.querySelector(".start").style.display = "none";
+  // document.querySelector(".edit").style.display = "none";
 
   let newContainer = document.createElement("div");
   newContainer.setAttribute("class", "quizContainer");
@@ -596,7 +621,7 @@ function loadData(){
   answers.addEventListener("click", checkedAnswer)
 
   nextBtn()
-  backBtn()
+  // backBtn()
 }
 
 function nextBtn(){
@@ -620,32 +645,32 @@ function nextBtn(){
 
 
 
-function backBtn(){
-  let answerContainer = document.getElementsByClassName("questionContainer")
-  if (answerContainer.length !== 0){
-    for (let i=0;i<answerContainer.length;i++){
-      console.log(answerContainer[i]);
-      answerContainer[i].style.display = "none";
-      } 
-  }
+// function backBtn(){
+//   let answerContainer = document.getElementsByClassName("questionContainer")
+//   if (answerContainer.length !== 0){
+//     for (let i=0;i<answerContainer.length;i++){
+//       console.log(answerContainer[i]);
+//       answerContainer[i].style.display = "none";
+//       } 
+//   }
 
-  checkAnswer = false;
-  clicked = false;
-  let oldBtn = document.getElementsByClassName("backBtn")
-  if (oldBtn.length > 0){
-    oldBtn[0].remove();
-  }
+//   checkAnswer = false;
+//   clicked = false;
+//   let oldBtn = document.getElementsByClassName("backBtn")
+//   if (oldBtn.length > 0){
+//     oldBtn[0].remove();
+//   }
 
-  let btnBack = document.createElement("button");
-  btnBack.setAttribute("class", "backBtn");
-  // icon............ 
-  let icon = document.createElement('i');
-  icon.setAttribute("class", "fa fa-times");
-  btnBack.appendChild(icon);
-  document.body.appendChild(btnBack);
+//   let btnBack = document.createElement("button");
+//   btnBack.setAttribute("class", "backBtn");
+//   // icon............ 
+//   let icon = document.createElement('i');
+//   icon.setAttribute("class", "fa fa-times");
+//   btnBack.appendChild(icon);
+//   document.body.appendChild(btnBack);
 
-  btnBack.addEventListener("click", displayOption)
-}
+//   btnBack.addEventListener("click", displayOption)
+// }
 
 function btnShowResult(){
   clicked = false;
