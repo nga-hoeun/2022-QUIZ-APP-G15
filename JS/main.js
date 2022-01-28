@@ -329,6 +329,8 @@ function displayQuestion(){
       label.textContent=myQuestions[i].answers[j]
       if(myQuestions[i].correctAnswer==choice.value){
         choice.checked = true;
+      }else{
+        choice.disabled=true
       }
       answerChoice.appendChild(choice);
       answerChoice.appendChild(label);
@@ -412,19 +414,40 @@ function editQuestion(event){
   }
 
   if(event.target.className==="imageEdit"){
+    let edited={question:"",
+    answers:{
+      a:"",
+      b:"",
+      c:"",
+      d:"",
+    },
+    correctAnswer:""}
     console.log(event.target);
     let answers = event.target.parentElement.parentElement.parentElement.firstChild.nextSibling.children;
     console.log(answers);
-    let textAn = "";
-    for (let i in myQuestions[indexOfQ].answers){
-      textAn += myQuestions[indexOfQ].answers[i] + ",";
-    }
-    console.log(textAn);
     let question = document.getElementById("getQuestion");
-    let answer = document.getElementById("getAnswer");
     question.value = myQuestions[indexOfQ].question;
-    answer.value = textAn;
-    showEditForm()
+    let answer = document.getElementsByClassName("getAnswer");
+    answer[0].value=myQuestions[indexOfQ].answers.a
+    answer[1].value=myQuestions[indexOfQ].answers.b
+    answer[2].value=myQuestions[indexOfQ].answers.c
+    answer[3].value=myQuestions[indexOfQ].answers.d
+
+    edited.question=question.value;
+    edited.answers["a"]=answer[0].value;
+    edited.answers["b"]=answer[1].value;
+    edited.answers["c"]=answer[2].value;
+    edited.answers["d"]=answer[3].value;
+    let radioCorrect = document.getElementsByName("answer");
+    for(let indexRadio in radioCorrect){
+      if(radioCorrect[indexRadio].checked===true){
+        edited.correctAnswer=radioCorrect[indexRadio].value
+      }
+    }
+    // if(myQuestions[i].correctAnswer==choice.value){
+    //   choice.checked = true;
+    // }
+    // showEditForm()
     // document.querySelector(".showAnswer").style.display = "";
   }
 }
