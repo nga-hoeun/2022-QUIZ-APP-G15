@@ -12,50 +12,49 @@ const arrayOfContext=[{
     text:"Edit"
 }];
 
-let myQuestions = [
-    {
-      question: "Inside which HTML element do we put the JavaScript?",
-      answers: {
-        a: "<javascript>",
-        b: "<scripting>",
-        c: "<js>",
-        d: "<script>"
-      },
-      correctAnswer: "d"
-    },
-    {
-      question: "How do you create a function in JavaScript?",
-      answers: {
-        a: "myFunction()",
-        b: "myFunction{}",
-        c: "function:",
-        d: "function:()"
-      },
-      correctAnswer: "a"
-    },
-    {
-      question: "How do you call a function named 'myFunction'?",
-      answers: {
-        a: "myFunction()= ",
-        b: "Function:()",
-        c: "call my()",
-        d: "myFunction()"
-      },
-      correctAnswer: "d"
-    },
-    {
-      question: "How to write an IF statement in JavaScript?",
-      answers: {
-        a: "if i == 5 then",
-        b: "if (i == 5)",
-        c: "if i = 5",
-        d: "if i = 5 then"
-      },
-      correctAnswer: "b"
-    }
-  ];
+// let myQuestions = [
+//     {
+//       question: "Inside which HTML element do we put the JavaScript?",
+//       answers: {
+//         a: "<javascript>",
+//         b: "<scripting>",
+//         c: "<js>",
+//         d: "<script>"
+//       },
+//       correctAnswer: "d"
+//     },
+//     {
+//       question: "How do you create a function in JavaScript?",
+//       answers: {
+//         a: "myFunction()",
+//         b: "myFunction{}",
+//         c: "function:",
+//         d: "function:()"
+//       },
+//       correctAnswer: "a"
+//     },
+//     {
+//       question: "How do you call a function named 'myFunction'?",
+//       answers: {
+//         a: "myFunction()= ",
+//         b: "Function:()",
+//         c: "call my()",
+//         d: "myFunction()"
+//       },
+//       correctAnswer: "d"
+//     },
+//     {
+//       question: "How to write an IF statement in JavaScript?",
+//       answers: {
+//         a: "if i == 5 then",
+//         b: "if (i == 5)",
+//         c: "if i = 5",
+//         d: "if i = 5 then"
+//       },
+//       correctAnswer: "b"
+//     }
+//   ];
 
-// let myQuestions = [];
 
 // Form Edit alert =====================================
 document.querySelector(".editFormContainer").style.display = "none";
@@ -75,6 +74,7 @@ logo.addEventListener("click", displayOption)
 
 function displayOption(){ 
     index = 0;
+    score = 0;
 
     let oldContainer = document.getElementsByClassName("newContainer")
     if (oldContainer.length > 0){
@@ -180,11 +180,11 @@ let optionCon = document.querySelector(".newContainer");
 
 function addQuestion(){
   // style to show the page ==============
-  document.getElementById("add-mode").style.color = "";
-  document.getElementById("add-mode").style.backgroundColor = "grey";
+  document.getElementById("add-mode").style.display = "none";
+  // document.getElementById("add-mode").style.backgroundColor = "grey";
 
   // Disable style from edit page 
-  document.getElementById("edit-mode").style.color = "";
+  document.getElementById("edit-mode").style.display = "";
   document.getElementById("edit-mode").style.backgroundColor = "#116CFF";
 
 
@@ -199,16 +199,17 @@ function addQuestion(){
 let questionValue = document.getElementById("getQuestion");
 let answerVaule = document.getElementsByClassName("getAnswer")
 
-let temp = {};
 function addToArray(){
   // CHECK VALIDATION OF SELECT RIGHT ANSWER ======================================
+  let temp = {};
   let correctAn = "";
   let radio = document.getElementsByName('answer');
   for (let i in radio){
     if(radio[i].checked){
       correctAn = radio[i].value
       console.log(radio[i].value)}
-      }
+    }
+
   if (correctAn!=="" && checkValidationQ()!==false && questionValue.value !=="" && checkValidationAnInput()!==true && checkValidationAnDou()!==true){
     swal("Good job!", "You added the Question", "success");
     // event.preventDefault();  
@@ -224,15 +225,19 @@ function addToArray(){
   
     temp.correctAnswer = correctAn;
     myQuestions.push(temp)
-    temp = {};
+
+    // Save to localStorage ++++++++++++++++++++++++++++++++++++++++++ 
+    saveMyQuestions(myQuestions)
+
     resetData();
+
   }else{
     if(checkValidationQ()===false){
       swal("Oops...!", "You had add this question before!", "error");
     }else if(questionValue.value ===""){
       swal("Oops...!", "Please input your question!", "error");
     }else if(checkValidationAnInput()===true){
-      swal("Oops...!", "Please input all of your answers!", "error");
+      swal("Oops...!", "Please input all of your answers!!!!!!!!!!!!!", "error");
     }else if(checkValidationAnDou()===true){
       swal("Oops...!", "You have the duplicate answers!", "error");
     }else{
@@ -245,18 +250,22 @@ function addToArray(){
 
 // CHECK VALIDATION =============================================
 function checkValidationQ(){
-  for (let i=0;i<myQuestions.length;i++){
-    if (questionValue.value===myQuestions[i].question){
-      return false;
+  if (localStorage.length > 0){
+    for (let i=0;i<myQuestions.length;i++){
+      if (questionValue.value===myQuestions[i].question){
+        return false;
+      }
     }
   }
 }
 
 function checkValidationAnInput(){
+  let answerVaule = document.getElementsByClassName("getAnswer")
   for (let i in answerVaule){
-    if(answerVaule[i].value ===""){
+    if(answerVaule[i].value === ""){
       return true
-      console.log(true)}
+      // console.log(true)
+    }
     }
 }
 
@@ -311,11 +320,12 @@ function displayQuestion(){
   addQuizCon.style.display = "none";
   document.querySelector(".mainContainerQ").style.display = "";
 
-  document.getElementById("edit-mode").style.color = "";
-  document.getElementById("edit-mode").style.backgroundColor = "grey";
+  document.getElementById("edit-mode").style.display = "none";
+  // document.getElementById("edit-mode").style.backgroundColor = "grey";
   
   // hide style prevouse page ==============================
   // style to show the page ==============
+  document.getElementById("add-mode").style.display = "";
   document.getElementById("add-mode").style.backgroundColor = "#116CFF";
 
   document.querySelector('.newContainer').style.display = "none";
@@ -329,44 +339,48 @@ function displayQuestion(){
   mainCon.setAttribute("class", "manageCon");
   allQuestions.appendChild(mainCon);
 
-  for(let i in myQuestions){
-    let questionContainer=document.createElement("div");
-    questionContainer.className="questionContainer";
-    let questionShow=document.createElement("span");
-    questionShow.textContent=Number(i)+1+" . "+myQuestions[i].question;
-    questionShow.className="questionShow";
-    questionContainer.appendChild(questionShow);
-    let answerCon=document.createElement("div");
-    answerCon.className="answers";
-    for(let j in myQuestions[i].answers){
-      let answerChoice = document.createElement("div");
-      answerChoice.className="answerChoice";
-      let choice = document.createElement("input");
-      choice.setAttribute("type", "radio");
-      choice.setAttribute("name", "answerSelect"+i);
-      choice.setAttribute("value", j);
-      let label=document.createElement("label");
-      label.textContent=myQuestions[i].answers[j]
-      if(myQuestions[i].correctAnswer==choice.value){
-        choice.checked = true;
+  if (localStorage.length>0){
+    myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
+    for(let i in myQuestions){
+      let questionContainer=document.createElement("div");
+      questionContainer.className="questionContainer";
+      let questionShow=document.createElement("span");
+      questionShow.textContent=Number(i)+1+" . "+myQuestions[i].question;
+      questionShow.className="questionShow";
+      questionContainer.appendChild(questionShow);
+      let answerCon=document.createElement("div");
+      answerCon.className="answers";
+      for(let j in myQuestions[i].answers){
+        let answerChoice = document.createElement("div");
+        answerChoice.className="answerChoice";
+        let choice = document.createElement("input");
+        choice.setAttribute("type", "radio");
+        choice.setAttribute("name", "answerSelect"+i);
+        choice.setAttribute("value", j);
+        let label=document.createElement("label");
+        label.textContent=myQuestions[i].answers[j]
+        if(myQuestions[i].correctAnswer==choice.value){
+          choice.checked = true;
+        }
+        answerChoice.appendChild(choice);
+        answerChoice.appendChild(label);
+        answerCon.appendChild(answerChoice);
       }
-      answerChoice.appendChild(choice);
-      answerChoice.appendChild(label);
-      answerCon.appendChild(answerChoice);
+      let edition = document.createElement("div");
+      edition.className="edition"
+      let edit=document.createElement("img");
+      edit.className="imageEdit";
+      edit.src="./IMG/edit.png";
+      edition.appendChild(edit);
+      let deleted = document.createElement("img");
+      deleted.className="imageDelete";
+      deleted.src="./IMG/delete.png";
+      edition.appendChild(deleted);
+      answerCon.appendChild(edition);
+      questionContainer.appendChild(answerCon);
+      mainCon.appendChild(questionContainer);
     }
-    let edition = document.createElement("div");
-    edition.className="edition"
-    let edit=document.createElement("img");
-    edit.className="imageEdit";
-    edit.src="./IMG/edit.png";
-    edition.appendChild(edit);
-    let deleted = document.createElement("img");
-    deleted.className="imageDelete";
-    deleted.src="./IMG/delete.png";
-    edition.appendChild(deleted);
-    answerCon.appendChild(edition);
-    questionContainer.appendChild(answerCon);
-    mainCon.appendChild(questionContainer);
+    
   }
     document.body.addEventListener("click", deleteQuestion)
     document.body.addEventListener("click", editQuestion)
@@ -413,6 +427,8 @@ function deleteQuestion(event){
         });
         event.target.parentElement.parentElement.parentElement.remove();
         myQuestions.splice(indexOfQ,1);
+        // push data to localStorage again +++++++++++++++++++++++
+        saveMyQuestions(myQuestions)
       } else {
         swal("Nothing deleted!");
       }
@@ -455,8 +471,6 @@ function editQuestion(event){
 }
 
 function showEditForm(){
-  
-
   let formQA = document.getElementById("inputForm");
 
   let appearAllQuiz = document.createElement("div");
@@ -570,14 +584,15 @@ function selectedAnswer(){
 let homePage = document.querySelector(".home-page");
 function startQuiz(){
   index = 0;
-  document.querySelector(".mainContainerEdit").style.display = "none";
+  myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
+  // document.querySelector(".mainContainerEdit").style.display = "";
   let oldContainer = document.querySelector(".newContainer");
   document.querySelector(".newContainer").style.display = "none"; 
-  if (myQuestions.length !== 0){
+  if (myQuestions.length !== 0 && localStorage.length > 0){
     loadData();
-  
   }else{
     swal("Oops...!", "You don't have created Quiz Yet!", "error");
+    displayOption()
   }
 }
 
@@ -587,50 +602,54 @@ function loadData(){
   if (oldContainer.length > 0){
     oldContainer[0].remove();
   }
-  // document.querySelector(".start").style.display = "none";
-  // document.querySelector(".edit").style.display = "none";
+  clicked = false;
+  if (localStorage.length > 0){
+      myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
+      // document.querySelector(".start").style.display = "none";
+      // document.querySelector(".edit").style.display = "none";
+    
+      let newContainer = document.createElement("div");
+      newContainer.setAttribute("class", "quizContainer");
+      document.body.appendChild(newContainer);
+    
+      let countQ = document.createElement("h3");
+      countQ.setAttribute("class", "titleQ");
+      newContainer.appendChild(countQ);
+    
+      countQ.textContent = "Questions: " + Number(index+1) +"/"+ myQuestions.length;
+      let question = document.createElement("h3");
+      question.textContent = Number(index)+1 +". "+ myQuestions[index].question;
+      newContainer.appendChild(question);
+    
+      let allAnswer = document.createElement("div");
+      allAnswer.setAttribute("class", "appearAnswer");
+      newContainer.appendChild(allAnswer)
+    
+      for (let j in myQuestions[index].answers){
+        let textAnswer = j +". "+ myQuestions[index].answers[j];
+        let answer = document.createElement("div");
+        answer.setAttribute("class", "answer");
+        answer.textContent = textAnswer;
+        // let showAnswerCon = document.querySelector(".appearAnswer");
+        allAnswer.appendChild(answer);
+      }
+    
+      
+      let answers = document.querySelector(".appearAnswer")
+      answers.addEventListener("click", checkedAnswer)
+    
+      nextBtn()
 
-  let newContainer = document.createElement("div");
-  newContainer.setAttribute("class", "quizContainer");
-  document.body.appendChild(newContainer);
-
-  let countQ = document.createElement("h3");
-  countQ.setAttribute("class", "titleQ");
-  newContainer.appendChild(countQ);
-
-  countQ.textContent = "Questions: " + Number(index+1) +"/"+ myQuestions.length;
-  let question = document.createElement("h3");
-  question.textContent = Number(index)+1 +". "+ myQuestions[index].question;
-  newContainer.appendChild(question);
-
-  let allAnswer = document.createElement("div");
-  allAnswer.setAttribute("class", "appearAnswer");
-  newContainer.appendChild(allAnswer)
-
-  for (let j in myQuestions[index].answers){
-    let textAnswer = j +". "+ myQuestions[index].answers[j];
-    let answer = document.createElement("div");
-    answer.setAttribute("class", "answer");
-    answer.textContent = textAnswer;
-    // let showAnswerCon = document.querySelector(".appearAnswer");
-    allAnswer.appendChild(answer);
   }
-
-  
-  let answers = document.querySelector(".appearAnswer")
-  answers.addEventListener("click", checkedAnswer)
-
-  nextBtn()
-  // backBtn()
 }
 
 function nextBtn(){
-
   let oldBtn = document.getElementsByClassName("nextQ")
   if (oldBtn.length > 0){
     oldBtn[0].remove();
   }
-  
+  checkAnswer = false;
+  clicked = false;
   // Add button grey when can click +++++++++++++++++++++++++++++++++++++ 
   let btnNext = document.createElement("button");
   btnNext.setAttribute("class", "nextQ");
@@ -643,34 +662,6 @@ function nextBtn(){
   btnNext.addEventListener("click", nextQuestion)
 }
 
-
-
-// function backBtn(){
-//   let answerContainer = document.getElementsByClassName("questionContainer")
-//   if (answerContainer.length !== 0){
-//     for (let i=0;i<answerContainer.length;i++){
-//       console.log(answerContainer[i]);
-//       answerContainer[i].style.display = "none";
-//       } 
-//   }
-
-//   checkAnswer = false;
-//   clicked = false;
-//   let oldBtn = document.getElementsByClassName("backBtn")
-//   if (oldBtn.length > 0){
-//     oldBtn[0].remove();
-//   }
-
-//   let btnBack = document.createElement("button");
-//   btnBack.setAttribute("class", "backBtn");
-//   // icon............ 
-//   let icon = document.createElement('i');
-//   icon.setAttribute("class", "fa fa-times");
-//   btnBack.appendChild(icon);
-//   document.body.appendChild(btnBack);
-
-//   btnBack.addEventListener("click", displayOption)
-// }
 
 function btnShowResult(){
   clicked = false;
@@ -735,7 +726,6 @@ function checkedSentenceA(sen){
 }
 
 // function checkNumOfIndex()
-
 function checkAnswerInData(getAn){
   if (myQuestions[index].correctAnswer == getAn){
     return true;
@@ -746,10 +736,12 @@ function showResult(){
   document.querySelector(".quizContainer").style.display = "none";
   document.querySelector(".btnSubmitResult").style.display = "none";
   let result = document.querySelector(".finalResult");
+  let percent = document.querySelector(".finalResult h1");
+  percent.textContent = sumScore();
   result.style.display = "";
-  document.querySelector(".itemResult").textContent = "Correct: " + score;
+  // document.querySelector(".itemResult").textContent = "Correct: " + score;
   let incorrect = myQuestions.length - score;
-  document.querySelector(".itemResultIn").textContent = "Incorrect: " + incorrect;
+  // document.querySelector(".itemResultIn").textContent = "Incorrect: " + incorrect;
   score = 0;
   checkAnswer = false;
 }
@@ -766,8 +758,35 @@ function resetData(){
   }
 }
 
-function sumScore(){
-  result = score/myQuestions.length * 100
+// Store Data to localStorage +++++++++++++++++++++++++++++++++
+function saveMyQuestions(data){
+  localStorage.setItem('myQuestions', JSON.stringify(data));
+}
+
+function sumScore(data){
+  return score/myQuestions.length * 100 + "%"
+}
+
+
+document.querySelector(".showCorrection").addEventListener("click", showListCorrection)
+function showListCorrection(){
+  myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
+  console.log("Helloooo");
+  let listResultCon = document.querySelector(".correctionList");
+  for (let i in myQuestions){
+    let li = document.createElement("div");
+    li.setAttribute("class", "listAnswer");
+    li.textContent = myQuestions[i].question;
+
+    let list = document.createElement("ol");
+    li.appendChild(list)
+    for (let j in myQuestions[i].answers){
+      let answer = document.createElement("li")
+      answer.textContent = myQuestions[i].answers[j];
+      list.appendChild(answer);
+    }
+    listResultCon.appendChild(li);
+  }
 }
 
 let index = 0;
@@ -777,10 +796,12 @@ let result = 0
 let clicked = false;
 let checkAnswer = false;
 
+let myQuestions = [];
 
-if (index === myQuestions.length){
-  document.querySelector(".finalResult").style.display = "";
-}
+
+// if (index === myQuestions.length){
+//   document.querySelector(".finalResult").style.display = "";
+// }
 
 let btn=document.getElementById("start");
 btn.addEventListener("click",displayOption);

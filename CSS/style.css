@@ -244,7 +244,7 @@ ul li{
 }
 /* Create question  */
 
-.addContainer,.editFormContainer {
+.addContainer,.editFormContainer,.correctionList {
     display: block;
     align-items: center;
     justify-content: center;
@@ -288,7 +288,7 @@ ul li{
 
 
 
-#inputForm,#inputFormEdit{
+#inputForm,#inputFormEdit,.correctionList{
     /* background: var(--bgCard); */
     line-height: 2rem;
     padding: 2rem;
@@ -297,6 +297,12 @@ ul li{
     border-radius: 5px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     border-bottom: 3px solid var(--blue);
+    margin-top: 1rem;
+}
+.correctionList .listAnswer{
+    border-bottom: 2px solid var(--blue);
+    font-family: var(--titleFont);
+    padding: 1rem 0;
 }
 
 #inputFormEdit {
@@ -315,6 +321,8 @@ ul li{
     padding: 0.5rem 1rem;
     cursor: pointer;
 }
+
+
 
 .answer-control {
     display: flex;
@@ -462,6 +470,13 @@ ul li{
     border-bottom: 3px solid var(--blue);
     margin-bottom: 2rem;
 }
+.finalResult h1{
+    font-size: 150px;
+    padding: 5.5rem 0;
+    color: var(--red);
+    text-align: center;
+}
+
 .finalResult .title{
     display: flex;
     align-items: center;
