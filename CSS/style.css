@@ -30,6 +30,9 @@
       padding: 0.5rem;
       box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   }
+  .nav-bar .logo {
+      cursor: pointer;
+  }
   .app-name{
       width: 65%;
       text-align: center;
@@ -50,12 +53,15 @@
 .edit,
 .add,
 .cancel,
+.cancel2,
 #create,
 .nextQ,
+.save,
 .backBtn,
 .saveEditBtn,
 .btnSubmitResult,
-.showCorrection {
+.showCorrection,
+ul li{
   background-color: var(--blue);
   border-radius: 5px;
   border: 0;
@@ -86,6 +92,8 @@
 }
 
 .cancel,
+.cancel2,
+.save,
 .add{
     position: absolute;
     margin-top: 1rem;
@@ -95,12 +103,15 @@
     background: grey;
 }
 
-.add{
+.add,
+.save{
     right: 25%;
     background: var(--blue);
 }
 
-.cancel:hover{
+.cancel:hover,
+.cancel2:hover
+{
     background: var(--red);
     transform: translateY(-2px);
 
@@ -155,13 +166,15 @@
 .btnStart:hover,
 .saveToDate:hover,
 .start:hover,
+.save:hover,
 .edit:hover,
 .add:hover,
 #create:hover,
 .saveEditBtn:hover,
 .nextQ:hover,
 .backBtn:hover,
-.showCorrection:hover {
+.showCorrection:hover
+.ul:hover {
     background-color: #065dd8;
     transform: translateY(-2px);
 }
@@ -230,12 +243,14 @@
     width: 150px;
 }
 /* Create question  */
-.addContainer {
+
+.addContainer,.editFormContainer {
     display: block;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
+
 
 .addContainer .title{
     line-height: 4rem;
@@ -251,16 +266,20 @@
 }
 .mainContainerEdit ul li{
     margin: 1rem;
+    padding: 0 5px;
     font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.1s;
     cursor: pointer;
 }
-.mainContainerEdit ul li:hover{
+/* .mainContainerEdit ul li:hover{
     margin: 1rem;
     font-size: 20px;
     border-bottom: 2px solid var(--blue);
     color: var(--blue);
-}
+} */
 .mainContainerEdit .title{
     text-align: center;
     line-height: 4rem;
@@ -269,7 +288,7 @@
 
 
 
-#inputForm{
+#inputForm,#inputFormEdit{
     /* background: var(--bgCard); */
     line-height: 2rem;
     padding: 2rem;
@@ -280,7 +299,14 @@
     border-bottom: 3px solid var(--blue);
 }
 
-#getQuestion, .getAnswer{
+#inputFormEdit {
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    background: rgb(255, 255, 255);
+}
+
+#getQuestion,#getQuestionEdit, .getAnswer,.getAnswerEdit{
     width: 100%;
     background: none;
     border: none;
