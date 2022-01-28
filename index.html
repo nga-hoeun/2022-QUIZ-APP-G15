@@ -17,25 +17,49 @@
             <h1>2022-QUIZ-APP-G15</h1>
         </div>
          <!-- start  -->
-    <button class="start"><i class="fa fa-play-circle-o"></i></button>
+    <button class="start">START</i></button>
+    <button class="edit">EDIT</i></button>
     </div>
     <div id="home-page">
         <div class="container-home">
             <h1>Welcome to the quiz creater online app</h1>
             <p>Our Quiz App is created by student from Passerellesnumeriques Cambodia generation 2022. You will get new experiences from this  app.</p>
-            <button id="start" class="button-66" role="button">Start</button>
+            <button id="start" class="button-66" role="button">START</button>
         </div>
     </div>
 
+    <!-- Add quiz Container  -->
+    <div class="addContainer">
+        <h1 class="title">Add Question</h1>       
+        <form class="manageForm">
+            <div id="inputForm">
+                <input id="getQuestion" type="text" placeholder="Questions" required="required">
 
-    <div class="info">
-        <h4>Tips</h4><hr>
-        <p>You need to follow all of this instruction below:</p>
-        <ol>
-            <li>You must input your question in input type!</li>
-            <li>You have 4 answers to input, so in each answer separate by a ",". If you want to input a space, you need to use a "-".</li>
-        </ol>
+                <div class="answer-control">
+                    <input type="radio" value="a" name="answer">
+                    <input class="getAnswer" type="text" placeholder="Answer​​​​ 1" required="required">
+                </div>
+                <div class="answer-control">
+                    <input type="radio" value="b" name="answer">
+                    <input class="getAnswer" type="text" placeholder="Answer​​​​ 2" required="required">
+                </div>
+                <div class="answer-control">
+                    <input type="radio" value="c" name="answer">
+                    <input class="getAnswer" type="text" placeholder="Answer​​​​ 3" required="required">
+                </div>
+                <div class="answer-control">
+                    <input type="radio" value="d" name="answer">
+                    <input class="getAnswer" type="text" placeholder="Answer​​​​ 4" required="required">
+                </div>
+            </div>
+        </form>
+        <button class="cancel">CANCEL</i></button>
+        <button class="add">ADD</i></button>
     </div>
+
+    <!-- EDIT FORM CONTAINER ============================================ -->
+
+
     <div class="finalResult">
         <div class="title">
             <i class="fa fa-star"></i>
@@ -46,10 +70,20 @@
         <div class="itemResultIn">Incorrect: 0</div>
         <button class="showCorrection">Corrections</button>
     </div>
-    <!-- <div class="addContainer"></div>
-    <div class="mainContainerQ"></div> -->
+    <div class="mainContainerEdit">
+        <ul>
+            <li id="edit-mode">EDIT</li>
+            <li id="add-mode">ADD QUESTION</li>
+        </ul>
+              
+        <div class="mainContainerQ">
+            <h1 class="title">Edit Question</h1> 
+        </div>
+    </div>
+
 
     <!-- Button -->
+
     <!-- next -->
     <!-- <button class="nextQ"><i class="fa fa-arrow-circle-o-right"></i></button> -->
     <!-- back  -->
@@ -59,14 +93,6 @@
 
     <!-- edit btn  -->
     <button class="saveEditBtn" type="submit">Save</button>
-    <!-- show and hide edit mode  -->
-    <div class="btnOpenEditForm">
-        <input class="container_toggle" type="checkbox" id="switchEdit" name="mode">
-            <label for="switchEdit" id="editFLabel">Toggle</label>
-        <div class="message">
-            Click here for edit mode!
-        </div>
-    </div>
 
     
     <script src="js/main.js"></script>

@@ -35,12 +35,21 @@
       text-align: center;
   }
 
+  /* button group ============================ */
+  /* .manageBtn{
+    display: flex;
+    justify-content: end;
+  } */
+
 /* Button style  */
 .button-66,
 .btnStart,
 #sumiteAnswer,
 .saveToDate,
 .start,
+.edit,
+.add,
+.cancel,
 #create,
 .nextQ,
 .backBtn,
@@ -75,23 +84,45 @@
     min-height: 50px;
     min-width: 200px;
 }
-.saveToDate, .saveEditBtn {
+
+.cancel,
+.add{
+    position: absolute;
+    margin-top: 1rem;
+    right: 34%;
+    min-height: 40px;
+    min-width: 90px;
+    background: grey;
+}
+
+.add{
+    right: 25%;
+    background: var(--blue);
+}
+
+.cancel:hover{
+    background: var(--red);
+    transform: translateY(-2px);
+
+}
+
+.saveToDate,
+.saveEditBtn{
     border-radius: 5px;
     min-height: 40px;
     min-width: 80px;
     margin-top: 1rem;
 }
 
-.start{
-    border-radius: 5px;
-    min-height: 70px;
-    min-width: 70px;
+.start,
+.edit {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    font-size: 45px;
 }
+
+
+
 .nextQ {
     padding: 0;
     position: absolute;
@@ -124,6 +155,8 @@
 .btnStart:hover,
 .saveToDate:hover,
 .start:hover,
+.edit:hover,
+.add:hover,
 #create:hover,
 .saveEditBtn:hover,
 .nextQ:hover,
@@ -209,6 +242,33 @@
     font-family: var(--titleFont);
 }
 
+/* container edit question  */
+.mainContainerEdit ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    /* margin-left: 5%; */
+}
+.mainContainerEdit ul li{
+    margin: 1rem;
+    font-size: 20px;
+    transition: all 0.1s;
+    cursor: pointer;
+}
+.mainContainerEdit ul li:hover{
+    margin: 1rem;
+    font-size: 20px;
+    border-bottom: 2px solid var(--blue);
+    color: var(--blue);
+}
+.mainContainerEdit .title{
+    text-align: center;
+    line-height: 4rem;
+    font-family: var(--titleFont);
+}
+
+
+
 #inputForm{
     /* background: var(--bgCard); */
     line-height: 2rem;
@@ -220,7 +280,7 @@
     border-bottom: 3px solid var(--blue);
 }
 
-#getQuestion, #getAnswer{
+#getQuestion, .getAnswer{
     width: 100%;
     background: none;
     border: none;
@@ -230,14 +290,21 @@
     cursor: pointer;
 }
 
+.answer-control {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
 #getQuestion:focus,
-#getAnswer:focus{
+.getAnswer:focus{
     border-bottom: 2px solid var(--blue);
     transition: all 0.2s;
     color: var(--blue);
     font-size: 15px;
     cursor: auto;
     background: none;
+    transform: translateY(-2px);
 }
 
 .addContainer #showAnswers{
@@ -457,61 +524,5 @@
 
 
 
-/* Hide creating mode */
 
-input[type=checkbox] {
-    visibility: hidden;
-    height: 0;
-    width: 0;
-
-    }
-    #editFLabel {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100px;
-    position: relative;
-    cursor: pointer;
-    text-indent: -9999px;
-    width: 40px;
-    height: 20px;
-    background: var(--blue);
-    }
-
-    #editFLabel:after {
-    border-radius: 50%;
-    position: absolute;
-    content: '';
-    background: #fff;
-    width: 15px;
-    height: 15px;
-    top: 2px;
-    left: 3px;
-    transition: ease-in-out 200ms;
-    }
-
-    input:checked + #editFLabel {
-    background: var(--red);
-    }
-
-    input:checked + #editFLabel:after {
-    left: calc(100% - 2px);
-    transform: translateX(-100%);
-    }
-
-    .btnOpenEditForm {
-        width: 100%;
-        margin-top: -1rem;
-        margin-bottom: 1rem;
-    }
-    .btnOpenEditForm .message{
-        text-align: center;
-        /* padding: 1rem;
-        background: rgba(255, 255, 255, 0.801);
-        width: 230px;
-        position: absolute;
-        right: 18%;
-        top: 25%;
-        border-radius: 10px; */
-    }
+   
