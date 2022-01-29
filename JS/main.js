@@ -14,7 +14,7 @@ document.querySelector(".editFormContainer").style.display = "none";
 
 document.querySelector(".finalResult").style.display = "none";
 
-document.querySelector(".saveEditBtn").style.display = "none";
+// document.querySelector(".saveEditBtn").style.display = "none";
 
 document.querySelector(".correctionList").style.display = "none";
 
