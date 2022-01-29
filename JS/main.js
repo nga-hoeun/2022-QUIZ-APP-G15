@@ -1,12 +1,10 @@
 
 const arrayOfContext=[{
-    picIcon:"./IMG/Vector.png",
     title:"Test Your Knowledge",
     imageBody:"./IMG/quiz.png",
     text:"Quiz"
 },
 {
-    picIcon:"./IMG/Vector (1).png",
     title:"Edit or Add Quiz Form",
     imageBody:"./IMG/question.png",
     text:"Edit"
@@ -63,6 +61,8 @@ document.querySelector(".finalResult").style.display = "none";
 
 document.querySelector(".saveEditBtn").style.display = "none";
 
+document.querySelector(".correctionList").style.display = "none";
+
 document.querySelector(".btnSubmitResult").style.display = "none";
 
 // Come back to home page ======================
@@ -72,6 +72,8 @@ logo.addEventListener("click", displayOption)
 function displayOption(){ 
     index = 0;
     score = 0;
+    inCoAnlist = [];
+
 
     let oldContainer = document.getElementsByClassName("newContainer")
     if (oldContainer.length > 0){
@@ -99,11 +101,6 @@ function displayOption(){
       displayMainEdit.style.display = "none";
     } 
 
-    // let oldContainerF = document.getElementsByClassName("addContainer")
-    // if (oldContainerF.length > 0){
-    //   oldContainerF[0].remove();
-    // }
-
     let btnNext = document.querySelector(".nextQ");
     if (btnNext !== null){
       btnNext.style.display = "none";
@@ -115,6 +112,8 @@ function displayOption(){
 
     document.querySelector(".finalResult").style.display = "none";
     document.querySelector(".btnSubmitResult").style.display = "none";
+    document.querySelector(".correctionList").style.display = "none";
+
 
 
     let container=document.getElementById("home-page");
@@ -126,10 +125,6 @@ function displayOption(){
         card.className="card";
         let cardTitle=document.createElement("div");
         cardTitle.className="card-title"
-        let iconQuiz=document.createElement("img");
-        iconQuiz.className="icon";
-        iconQuiz.src=object.picIcon;
-        cardTitle.appendChild(iconQuiz);
         let title=document.createElement("h3");
         title.className="title";
         title.textContent=object.title
@@ -225,9 +220,6 @@ function addToArray(){
     // Save to localStorage ++++++++++++++++++++++++++++++++++++++++++ 
     saveMyQuestions(myQuestions)
     myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
-
-    // resetData();
-
   }else{
     if(checkValidationQ()===false){
       swal("Oops...!", "You had add this question before!", "error");
@@ -344,6 +336,7 @@ function displayQuestion(){
         let choice = document.createElement("input");
         choice.setAttribute("type", "radio");
         choice.setAttribute("name", "answerSelect"+i);
+    
         choice.setAttribute("value", j);
         let label=document.createElement("label");
         label.textContent=myQuestions[i].answers[j]
@@ -654,7 +647,6 @@ function nextQuestion(){
 
 
 function checkedAnswer(event){
-  // getIndexToDel()
   if (clicked === false){
     checkAnswer = true;
     let toCheck = event.target.className;
@@ -662,12 +654,13 @@ function checkedAnswer(event){
     if (toCheck === "answer"){
       if (index+1 == myQuestions.length){
         btnShowResult()
-        // btnSubmit.style.display = "";
         document.querySelector(".nextQ").style.display = "none";
       }
     // Add button grey when can click +++++++++++++++++++++++++++++++++++++ 
       document.querySelector(".nextQ").style.backgroundColor = "#116CFF";
       clicked = true;
+      console.log(checkedSentenceA(event.target));
+      inCoAnlist.push(checkedSentenceA(event.target));
       if (checkAnswerInData(checkedSentenceA(event.target))===true){
         event.target.style.background = "#06BF19";
         // create icon for right answer =========================
@@ -676,7 +669,6 @@ function checkedAnswer(event){
         score += 1;
         event.target.appendChild(icon);
       }else{
-        console.log(event.target);
         event.target.style.background = "#BF0606";
         // create icon for right answer =========================
         let iconX = document.createElement("i");
@@ -700,6 +692,7 @@ function checkAnswerInData(getAn){
   }
 }
 
+
 function showResult(){
   document.querySelector(".quizContainer").style.display = "none";
   document.querySelector(".btnSubmitResult").style.display = "none";
@@ -707,8 +700,7 @@ function showResult(){
   let percent = document.querySelector(".finalResult h1");
   percent.textContent = sumScore();
   result.style.display = "";
-  let incorrect = myQuestions.length - score;
-  score = 0;
+  // score = 0;
   checkAnswer = false;
 }
 
@@ -749,21 +741,51 @@ function sumScore(data){
 document.querySelector(".showCorrection").addEventListener("click", showListCorrection)
 function showListCorrection(){
   myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
-  console.log("Helloooo");
+  document.querySelector(".finalResult").style.display = "none";
+  document.querySelector(".correctionList").style.display = "";
+
+  document.querySelector(".co").textContent = "Correct : " + score;
+  document.querySelector(".inCo").textContent = "Incorrect : " + Number(myQuestions.length - score);
+  document.querySelector(".totalResult").textContent = "Total percentage : " + sumScore();
+
+  let oldCon = document.getElementsByClassName("mainList");
+  if (oldCon.length>0){
+    oldCon[0].remove();
+  }
+
   let listResultCon = document.querySelector(".correctionList");
+  let mainList = document.createElement("div");
+  mainList.setAttribute("class", "mainList");
+  listResultCon.appendChild(mainList);
   for (let i in myQuestions){
     let li = document.createElement("div");
     li.setAttribute("class", "listAnswer");
     li.textContent = myQuestions[i].question;
 
-    let list = document.createElement("ol");
+    let list = document.createElement("ul");
     li.appendChild(list)
+    let rightAn = document.createElement("i")
+    rightAn.setAttribute("class", "fa fa-check-circle-o")
+
+    let wrongAn = document.createElement("i")
+    wrongAn.setAttribute("class", "fa fa-times-circle-o")
+
     for (let j in myQuestions[i].answers){
       let answer = document.createElement("li")
-      answer.textContent = myQuestions[i].answers[j];
+      if (myQuestions[i].correctAnswer === j){
+        answer.style.backgroundColor = "rgba(192, 192, 192, 0.288)";
+        answer.textContent = myQuestions[i].answers[j];
+        answer.appendChild(rightAn);
+      }else if(inCoAnlist[i] === j){
+        answer.style.backgroundColor = "rgba(192, 192, 192, 0.288)";
+        answer.textContent = myQuestions[i].answers[j];
+        answer.appendChild(wrongAn);
+      }else{
+        answer.textContent = myQuestions[i].answers[j];
+      }
       list.appendChild(answer);
     }
-    listResultCon.appendChild(li);
+    mainList.appendChild(li);
   }
 }
 
@@ -775,11 +797,7 @@ let clicked = false;
 let checkAnswer = false;
 
 let myQuestions = [];
-
-
-// if (index === myQuestions.length){
-//   document.querySelector(".finalResult").style.display = "";
-// }
+let inCoAnlist = [];
 
 let btn=document.getElementById("start");
 btn.addEventListener("click",displayOption);

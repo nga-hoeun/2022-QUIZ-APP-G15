@@ -5,7 +5,7 @@
     --white: #FFFFFC;
     --red: #BF0606;
     --green: #06BF19;
-    --bgCard: #E5E5E5;
+    --bgCard: #ffffff93;
     --titleFont: 'Montserrat', sans-serif;
     --descripFont: 'Open Sans', sans-serif;
   }
@@ -39,10 +39,6 @@
   }
 
   /* button group ============================ */
-  /* .manageBtn{
-    display: flex;
-    justify-content: end;
-  } */
 
 /* Button style  */
 .button-66,
@@ -109,6 +105,12 @@ ul li{
     background: var(--blue);
 }
 
+.save,
+.cancel2
+{
+    margin-top: 3%;
+
+}
 .cancel:hover,
 .cancel2:hover
 {
@@ -132,13 +134,17 @@ ul li{
     justify-content: center;
 }
 
+.save, .cancel2{
+    top: 75%;
+}
+
 
 
 .nextQ {
     padding: 0;
     position: absolute;
-    right: 15%;
-    top: 50%;
+    right: 5%;
+    top: 58%;
     min-height: 80px;
     min-width: 80px;
     font-size: 40px;
@@ -173,7 +179,7 @@ ul li{
 .saveEditBtn:hover,
 .nextQ:hover,
 .backBtn:hover,
-.showCorrection:hover
+.showCorrection:hover,
 .ul:hover {
     background-color: #065dd8;
     transform: translateY(-2px);
@@ -213,38 +219,38 @@ ul li{
     justify-content: center;
 }
 .newContainer .card {
+    width: 30%;
+    height: 70vh;
     margin-top: 2rem;
-    /* background: var(--bgCard); */
-    /* background: url(/IMG/bg-container.png);
-    background-position: center; */
     border-radius: 10px;
     padding: 1rem;
     margin: 1rem;
     line-height: 2rem;
+    background: var(--bgCard);
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     border-bottom: 2px solid var(--blue);
+}
+
+.newContainer .card img {
+    width: 350px;
 }
 .newContainer .card:hover {
     cursor: pointer;
     background: rgba(255, 255, 255, 0.438);
 }
-.newContainer .card .card-title{
+.newContainer .card h3{
     text-align: center;
     display: flex;
     width: 100%;
     justify-content: center;
+    font-size: 25px;
+    padding: 1rem 0;
+    font-family: var(--titleFont);
+    border-bottom: 2px solid var(--blue);
 }
-.newContainer .card .card-title .icon{
-   position: absolute;
-   margin-top: 17px;
-   margin-left: -100px;
-}
-.newContainer .card .card-title h3{
-    width: 150px;
-}
-/* Create question  */
 
-.addContainer,.editFormContainer,.correctionList {
+/* Create question  */
+.editFormContainer,.correctionList {
     display: block;
     align-items: center;
     justify-content: center;
@@ -289,7 +295,6 @@ ul li{
 
 
 #inputForm,#inputFormEdit,.correctionList{
-    /* background: var(--bgCard); */
     line-height: 2rem;
     padding: 2rem;
     width: 50%;
@@ -298,18 +303,20 @@ ul li{
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     border-bottom: 3px solid var(--blue);
     margin-top: 1rem;
+    background: var(--bgCard);
+}
+
+.editFormContainer .title {
+    margin: 2rem 0;
+}
+
+.manageFormEdit h1 {
+    background: none;
 }
 .correctionList .listAnswer{
     border-bottom: 2px solid var(--blue);
     font-family: var(--titleFont);
     padding: 1rem 0;
-}
-
-#inputFormEdit {
-    position: absolute;
-    left: 25%;
-    top: 25%;
-    background: rgb(255, 255, 255);
 }
 
 #getQuestion,#getQuestionEdit, .getAnswer,.getAnswerEdit{
@@ -351,7 +358,7 @@ ul li{
 
 .addContainer .showQuestionCon{
     margin-top: 1rem;
-    background: var(--white);
+    background: var(--bgCard);
     border-left: 2px solid var(--blue);
     margin-top: 1rem;
 }
@@ -362,12 +369,13 @@ ul li{
 
 .quizContainer {
     /* background: var(--bgCard); */
-    width: 50%;
+    width: 70%;
     margin: 0 auto;
     margin-top: 2rem;
-    padding: 2rem 3rem 8rem;
+    padding: 2rem 3rem 5rem;
     text-align: center;
     line-height: 2rem;
+    background: var(--bgCard);
     border-radius: 7px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     border-bottom: 3px solid var(--blue);
@@ -377,6 +385,15 @@ ul li{
 .quizContainer h3{
     line-height: 3rem;
     margin-bottom: 1rem;
+    font-size: 35px;
+    font-weight: bolder;
+} 
+
+.quizContainer .titleQ{
+    line-height: 3rem;
+    margin-bottom: 1rem;
+    font-size: 18px;
+    text-align: end;
 } 
 .appearAnswer{
    display: flex;
@@ -387,12 +404,14 @@ ul li{
 
 .appearAnswer .answer{
     width: 48%;
+    height: 80px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 5px;
     background: var(--blue);
     border-radius: 50px;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bolder;
     text-align: left;
     min-height: 10px;
@@ -408,7 +427,7 @@ ul li{
 /* icon - style  */
 .fa-times-circle-o,
 .fa-check-circle-o {
-    font-size: 30px;
+    font-size:50px;
     /* margin-left: 2rem; */
     /* position: absolute; */
 }
@@ -419,8 +438,8 @@ ul li{
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 15%;
-    top: 50%;
+    right: 5%;
+    top: 58%;
     min-height: 80px;
     min-width: 80px;
     font-size: 40px;
@@ -429,23 +448,6 @@ ul li{
 .btnSubmitResult:hover{
     background: green;
     transform: translateY(-2px);
-}
-
-.info {
-    background: #fff;
-    width: 23%;
-    padding: 1rem;
-    border-radius: 5px;
-    text-align: center;
-    position: absolute;
-    right: 1%;
-    margin-top: 4rem;
-    padding: 1.5rem;
-}
-.info ol{
-    padding: 1rem;
-    font-size: 12px;
-    line-height: 1rem;
 }
 
 .fa-info-circle {
@@ -465,6 +467,7 @@ ul li{
     padding: 2rem 3rem;
     text-align: center;
     line-height: 2rem;
+    background: var(--bgCard);
     border-radius: 7px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     border-bottom: 3px solid var(--blue);
@@ -509,13 +512,14 @@ ul li{
 .questionContainer{
     /* background: var(--bgCard); */
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    border-bottom: 3px solid var(--blue);
+    border-right: 40px solid var(--blue);
     font-family: var(--titleFont);
-    width: 50%;
+    width: 60%;
     margin: auto;
     margin-top: 20px;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
+    background-color: var(--bgCard);
     cursor: pointer;
 }
 .questionContainer:hover {
@@ -555,15 +559,45 @@ ul li{
     cursor: pointer;
     /* right: 21%; */
     position: absolute;
-    margin-left: 2rem;
-    margin-top: 20px;
+    margin-top: 1rem;
+    margin-left: 5%;
 }
 .edition .imageEdit{
-    margin-top: -33px;
+    margin-top: -30px;
 }
 
+.listAnswer li{
+    background: none;
+    box-shadow: none;
+    border: none;
+    color: #092656;
+    font-weight: 700;
+    font-family: var(--descripFont);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+}
 
-
-
-
-   
+.listAnswer .fa-check-circle-o,
+.listAnswer .fa-times-circle-o{
+    background: none;
+    color: var(--green);
+    position: absolute;
+    right: 2%;
+}
+.listAnswer .fa-times-circle-o{
+    color: var(--red);
+}
+.inAndCo {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 2rem 0;
+    border-bottom: 2px solid var(--blue);
+}
+.inAndCo .co {
+    color: var(--green);
+}
+.inAndCo .inCo {
+    color: var(--red);
+}
