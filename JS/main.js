@@ -60,13 +60,10 @@ const arrayOfContext=[{
 document.querySelector(".editFormContainer").style.display = "none";
 
 document.querySelector(".finalResult").style.display = "none";
-// document.querySelector(".start").style.display = "none";
+
 document.querySelector(".saveEditBtn").style.display = "none";
 
-// document.querySelector(".finalResult").style.display = "none";
 document.querySelector(".btnSubmitResult").style.display = "none";
-// document.querySelector(".nextQ").style.display = "none";
-// document.querySelector(".backBtn").style.display = "none";
 
 // Come back to home page ======================
 let logo = document.querySelector('.logo')
@@ -148,14 +145,13 @@ function displayOption(){
         card.appendChild(button);
         newContainer.appendChild(card);
     }
-    // let addQuiz = document.getElementsByClassName("btnStart")[1]
-    // addQuiz.addEventListener("click", addQuestion)
 
     document.body.appendChild(newContainer);
     let btnStart = document.getElementsByClassName("btnStart")[0];
     let btnQuiz = document.getElementsByClassName("btnStart")[1];
     btnQuiz.addEventListener("click", displayQuestion);
     btnStart.addEventListener("click", startQuiz);
+    resetDataEdit();
 }
 
 
@@ -278,10 +274,6 @@ function checkValidationAnDou(){
 }
 
 
-
-
-
-
 function devideAnswer(a){
   let result = [];
   let temp = "";
@@ -311,8 +303,6 @@ let page_editQ = document.querySelector(".mainContainerEdit");
 page_editQ.style.display = "none";
 
 function displayQuestion(){
-  // document.querySelector(".start").style.display = "";
-  // document.querySelector(".edit").style.display = "";
   document.querySelector(".editFormContainer").style.display = "none";
 
   page_editQ.style.display = "";
@@ -320,7 +310,6 @@ function displayQuestion(){
   document.querySelector(".mainContainerQ").style.display = "";
 
   document.getElementById("edit-mode").style.display = "none";
-  // document.getElementById("edit-mode").style.backgroundColor = "grey";
   
   // hide style prevouse page ==============================
   // style to show the page ==============
@@ -360,6 +349,8 @@ function displayQuestion(){
         label.textContent=myQuestions[i].answers[j]
         if(myQuestions[i].correctAnswer==choice.value){
           choice.checked = true;
+        }else{
+          choice.disabled=true
         }
         answerChoice.appendChild(choice);
         answerChoice.appendChild(label);
@@ -384,20 +375,6 @@ function displayQuestion(){
     document.body.addEventListener("click", deleteQuestion)
     document.body.addEventListener("click", editQuestion)
 }
-
-// function getIndexToDel(){
-//   let els=document.getElementsByClassName("imageDelete");
-//   for(i=0; i < els.length; i++) {
-//     els[i].index = i;
-//     els[i].addEventListener('mouseover', function(e) {
-//       // e.target.innerHTML = e.target.index;
-//       console.log(e.target.index);
-//       indexOfQ = e.target.index
-//     }, false);
-//   }
-// }
-
-
 
 function deleteQuestion(event){
   let els=document.getElementsByClassName("imageDelete");
@@ -435,6 +412,36 @@ function deleteQuestion(event){
   }
 }
 
+let edited={question:"",answers:{a:"",b:"",c:"",d:""},correctAnswer:""}
+function editQuestion(event){
+  let els=document.getElementsByClassName("imageEdit");
+  for(i=0; i < els.length; i++) {
+    els[i].index = i;
+    els[i].addEventListener('mouseover', function(e) {
+      console.log(e.target.index);
+      indexOfQ = e.target.index
+    }, false);
+  }
+
+  if(event.target.className==="imageEdit"){
+    
+    console.log(event.target);
+    let answers = event.target.parentElement.parentElement.parentElement.firstChild.nextSibling.children;
+    console.log(answers);
+    let question = document.getElementById("getQuestionEdit");
+    question.value = myQuestions[indexOfQ].question;
+    let answer = document.getElementsByClassName("getAnswerEdit");
+    answer[0].value=myQuestions[indexOfQ].answers.a
+    answer[1].value=myQuestions[indexOfQ].answers.b
+    answer[2].value=myQuestions[indexOfQ].answers.c
+    answer[3].value=myQuestions[indexOfQ].answers.d
+
+    document.querySelector(".editFormContainer").style.display = "";
+    document.querySelector(".mainContainerEdit").style.display = "none";
+    document.querySelector(".cancel2").addEventListener("click", saveWhenCancel)
+    document.querySelector(".save").addEventListener("click",editMyQuestion)    
+  }
+}
 /**
  * When you start editing and want to cancel your edit, the list should have the original
  * questions and the correct answer.
@@ -447,7 +454,9 @@ function deleteQuestion(event){
   edited.answers["d"]=myQuestions[indexOfQ].answers.d;
   edited.correctAnswer=myQuestions[indexOfQ].correctAnswer;
   myQuestions[indexOfQ]=edited;
+  saveMyQuestions(myQuestions)
   displayQuestion();
+  resetDataEdit();
 }
 /**
  * Edit the questions
@@ -465,7 +474,7 @@ function editMyQuestion(){
     if(radioCorrect[indexRadio].checked===true){
       edited.correctAnswer=radioCorrect[indexRadio].value
     }
-    appearAllQuiz.appendChild(btnToSave)
+    // appearAllQuiz.appendChild(btnToSave)
   }
   console.log(myQuestions)
   if(edited.question===""){
@@ -477,79 +486,8 @@ function editMyQuestion(){
   }else{
     swal("Good job!", "You edited the Question", "success");
     myQuestions[indexOfQ]=edited
+    saveMyQuestions(myQuestions)
     displayQuestion();
-  }
-}
-
-function editQuestion(event){
-  let els=document.getElementsByClassName("imageEdit");
-  for(i=0; i < els.length; i++) {
-    els[i].index = i;
-    els[i].addEventListener('mouseover', function(e) {
-      // e.target.innerHTML = e.target.index;
-      console.log(e.target.index);
-      indexOfQ = e.target.index
-    }, false);
-  }
-
-  if(event.target.className==="imageEdit"){
-
-    document.querySelector(".editFormContainer").style.display = "";
-    document.querySelector(".mainContainerEdit").style.display = "none";
-    document.querySelector(".cancel2").addEventListener("click", displayQuestion)
-
-    console.log(event.target);
-    let answers = event.target.parentElement.parentElement.parentElement.firstChild.nextSibling.children;
-    console.log(answers);
-    let textAn = "";
-    for (let i in myQuestions[indexOfQ].answers){
-      textAn += myQuestions[indexOfQ].answers[i] + ",";
-    }
-    // document.querySelector(".manageForm");
-    // console.log(textAn);
-    let question = document.getElementById("getQuestion");
-    let answer = document.getElementById("getAnswer");
-    
-    // showEditForm()
-    // document.querySelector(".showAnswer").style.display = "";
-  }
-}
-
-function showEditForm(){
-  let formQA = document.getElementById("inputForm");
-
-  let appearAllQuiz = document.createElement("div");
-  appearAllQuiz.setAttribute("class", "showAnswer");
-  formQA.appendChild(appearAllQuiz);
-
-  let appearQuestion = document.createElement("p");
-  appearQuestion .setAttribute("class", "showQuestionCon");
-  appearQuestion .textContent = temp.question;
-  appearAllQuiz.appendChild(appearQuestion);
-
-  let valueFromAnswer = document.getElementById("getAnswer").value;
-  let valueFromQues = document.getElementById("getQuestion").value;
-  if (valueFromAnswer!=="" && valueFromQues !==""){
-    let appearAnswers = document.createElement("div");
-    appearAnswers.setAttribute("id", "showAnswers")
-
-    let btnToSave = document.querySelector(".saveEditBtn");
-    btnToSave.style.display = ""
-
-    appearAllQuiz.appendChild(appearAnswers)
-  
-    for (let i in myQuestions[indexOfQ].answers){
-      let eachAnswer = document.createElement("input");
-      eachAnswer.setAttribute("type", "radio");
-      eachAnswer.setAttribute("name", "answerSelect");
-      eachAnswer.setAttribute("value", i);
-      let text = document.createElement("span");
-      text.textContent = myQuestions[indexOfQ].answers[i];
-      console.log(myQuestions[indexOfQ].answers[i]);
-      appearAnswers.appendChild(eachAnswer);
-      appearAnswers.appendChild(text);
-    }
-    appearAllQuiz.appendChild(btnToSave)
   }
 }
 
@@ -601,19 +539,6 @@ function addItemToData(event){
   }
   
 }
-// Create Menu bar ++++++++++++++++++++++++++++++++++++++++++
-// function createMenu(){
-//   let btnStart = document.querySelector(".start");
-//   btnStart.style.display = "";
-//   btnStart.addEventListener("click", startQuiz);
-// }
-
-
-// let btnStart = document.querySelector(".start");
-// let btnEdit = document.querySelector(".edit");
-// btnEdit.style.display = "none";
-// btnStart.style.display = "none";
-// btnStart.addEventListener("click", startQuiz);
 
 function selectedAnswer(){
   let allRadioAnswer = document.getElementsByName('answerSelect')
@@ -650,8 +575,6 @@ function loadData(){
   clicked = false;
   if (localStorage.length > 0){
       myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
-      // document.querySelector(".start").style.display = "none";
-      // document.querySelector(".edit").style.display = "none";
     
       let newContainer = document.createElement("div");
       newContainer.setAttribute("class", "quizContainer");
@@ -784,9 +707,7 @@ function showResult(){
   let percent = document.querySelector(".finalResult h1");
   percent.textContent = sumScore();
   result.style.display = "";
-  // document.querySelector(".itemResult").textContent = "Correct: " + score;
   let incorrect = myQuestions.length - score;
-  // document.querySelector(".itemResultIn").textContent = "Incorrect: " + incorrect;
   score = 0;
   checkAnswer = false;
 }
@@ -797,9 +718,18 @@ function resetData(){
   document.getElementsByClassName("getAnswer")[1].value = "";
   document.getElementsByClassName("getAnswer")[2].value = "";
   document.getElementsByClassName("getAnswer")[3].value = "";
-  // for (let i in answers){
-  //   answers[i].value = "";
-  // }
+  let radio = document.getElementsByName("answer");
+  for (let i in radio){
+    radio[i].checked = false;
+  }
+}
+
+function resetDataEdit(){
+  document.getElementById("getQuestionEdit").value = "";
+  document.getElementsByClassName("getAnswerEdit")[0].value = "";
+  document.getElementsByClassName("getAnswerEdit")[1].value = "";
+  document.getElementsByClassName("getAnswerEdit")[2].value = "";
+  document.getElementsByClassName("getAnswerEdit")[3].value = "";
   let radio = document.getElementsByName("answer");
   for (let i in radio){
     radio[i].checked = false;
