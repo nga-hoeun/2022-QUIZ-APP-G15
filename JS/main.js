@@ -1,4 +1,3 @@
-
 const arrayOfContext=[{
     picIcon:"./IMG/Vector.png",
     title:"Test Your Knowledge",
@@ -12,63 +11,17 @@ const arrayOfContext=[{
     text:"Edit"
 }];
 
-// let myQuestions = [
-//     {
-//       question: "Inside which HTML element do we put the JavaScript?",
-//       answers: {
-//         a: "<javascript>",
-//         b: "<scripting>",
-//         c: "<js>",
-//         d: "<script>"
-//       },
-//       correctAnswer: "d"
-//     },
-//     {
-//       question: "How do you create a function in JavaScript?",
-//       answers: {
-//         a: "myFunction()",
-//         b: "myFunction{}",
-//         c: "function:",
-//         d: "function:()"
-//       },
-//       correctAnswer: "a"
-//     },
-//     {
-//       question: "How do you call a function named 'myFunction'?",
-//       answers: {
-//         a: "myFunction()= ",
-//         b: "Function:()",
-//         c: "call my()",
-//         d: "myFunction()"
-//       },
-//       correctAnswer: "d"
-//     },
-//     {
-//       question: "How to write an IF statement in JavaScript?",
-//       answers: {
-//         a: "if i == 5 then",
-//         b: "if (i == 5)",
-//         c: "if i = 5",
-//         d: "if i = 5 then"
-//       },
-//       correctAnswer: "b"
-//     }
-//   ];
-
-
 // Form Edit alert =====================================
 document.querySelector(".editFormContainer").style.display = "none";
 
 document.querySelector(".finalResult").style.display = "none";
-
-document.querySelector(".saveEditBtn").style.display = "none";
 
 document.querySelector(".btnSubmitResult").style.display = "none";
 
 // Come back to home page ======================
 let logo = document.querySelector('.logo')
 logo.addEventListener("click", displayOption)
-
+// display the page 
 function displayOption(){ 
     index = 0;
     score = 0;
@@ -98,12 +51,6 @@ function displayOption(){
     if (displayMainEdit !== null){
       displayMainEdit.style.display = "none";
     } 
-
-    // let oldContainerF = document.getElementsByClassName("addContainer")
-    // if (oldContainerF.length > 0){
-    //   oldContainerF[0].remove();
-    // }
-
     let btnNext = document.querySelector(".nextQ");
     if (btnNext !== null){
       btnNext.style.display = "none";
@@ -172,12 +119,10 @@ addQuizCon.style.display = "none";
 document.querySelector(".mainContainerEdit").appendChild(addQuizCon);
 
 let optionCon = document.querySelector(".newContainer");
-// optionCon.style.display = "none";
 
 function addQuestion(){
   // style to show the page ==============
   document.getElementById("add-mode").style.display = "none";
-  // document.getElementById("add-mode").style.backgroundColor = "grey";
 
   // Disable style from edit page 
   document.getElementById("edit-mode").style.display = "";
@@ -189,12 +134,11 @@ function addQuestion(){
   document.querySelector(".newContainer").style.display = "none"
   document.querySelector(".add").addEventListener("click", addToArray)
   document.getElementsByClassName("cancel")[0].addEventListener("click", displayQuestion)
-  // document.getElementsByClassName("cancel")[1].addEventListener("click", displayQuestion)
 }
 
 let questionValue = document.getElementById("getQuestion");
 let answerVaule = document.getElementsByClassName("getAnswer")
-
+// Add to the local storage
 function addToArray(){
   // CHECK VALIDATION OF SELECT RIGHT ANSWER ======================================
   let temp = {};
@@ -213,7 +157,6 @@ function addToArray(){
     temp.answers = {};
 
     let answerVaule = document.getElementsByClassName("getAnswer")
-    // listOfAnswers = devideAnswer(answerValue);
     temp.answers.a = answerVaule[0].value;
     temp.answers.b = answerVaule[1].value;
     temp.answers.c = answerVaule[2].value;
@@ -225,8 +168,6 @@ function addToArray(){
     // Save to localStorage ++++++++++++++++++++++++++++++++++++++++++ 
     saveMyQuestions(myQuestions)
     myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
-
-    // resetData();
 
   }else{
     if(checkValidationQ()===false){
@@ -246,6 +187,7 @@ function addToArray(){
 
 
 // CHECK VALIDATION =============================================
+// Check for repeated questions
 function checkValidationQ(){
   if (localStorage.length != 0){
     for (let i=0;i<myQuestions.length;i++){
@@ -255,7 +197,7 @@ function checkValidationQ(){
     }
   }
 }
-
+// Check for blank inputs
 function checkValidationAnInput(){
   for (let i in answerVaule){
     if(answerVaule[i].value ===""){
@@ -263,7 +205,7 @@ function checkValidationAnInput(){
       console.log(true)}
     }
 }
-
+// Check if duplicated answers
 function checkValidationAnDou(){
   let list = [];
   for (let i=0;i<answerVaule.length;i++){
@@ -273,27 +215,6 @@ function checkValidationAnDou(){
   return new Set(list).size !== list.length
 }
 
-
-function devideAnswer(a){
-  let result = [];
-  let temp = "";
-  for (let i=0;i<a.length+1;i++){
-    if (a[i]!=="," && i!==a.length){
-      if (a[i]==" "){
-        temp+="";
-      }else if(a[i]=="-"){
-        temp+=" ";
-      }
-      else{
-        temp+=a[i];
-      }
-    }else{
-      result.push(temp);
-      temp = "";
-    }
-  }
-  return result;
-}
 /**
  * Display the quetions base on the input of the  user
  */
@@ -411,7 +332,7 @@ function deleteQuestion(event){
     });
   }
 }
-
+// Edit the question page
 let edited={question:"",answers:{a:"",b:"",c:"",d:""},correctAnswer:""}
 function editQuestion(event){
   let els=document.getElementsByClassName("imageEdit");
@@ -474,7 +395,6 @@ function editMyQuestion(){
     if(radioCorrect[indexRadio].checked===true){
       edited.correctAnswer=radioCorrect[indexRadio].value
     }
-    // appearAllQuiz.appendChild(btnToSave)
   }
   console.log(myQuestions)
   if(edited.question===""){
@@ -490,65 +410,6 @@ function editMyQuestion(){
     displayQuestion();
   }
 }
-
-function changeQuestionInData(event){
-  event.preventDefault()
-  console.log("hello");
-  myQuestions[indexOfQ].question = myQuestions[indexOfQ].question;
-
-  let textAn = "";
-  for (let i in myQuestions[indexOfQ].answers){
-    textAn += myQuestions[indexOfQ].answers[i] + ",";
-  }
-
-  myQuestions[indexOfQ].answers.a = devideAnswer(textAn)[0];
-  myQuestions[indexOfQ].answers.b = devideAnswer(textAn)[1];
-  myQuestions[indexOfQ].answers.c = devideAnswer(textAn)[2];
-  myQuestions[indexOfQ].answers.d = devideAnswer(textAn)[3];
-  myQuestions[indexOfQ].correctAnswer = "a";
-
-}
-document.querySelector(".saveEditBtn").addEventListener('click', changeQuestionInData)
-
-
-// Button Save Data 
-let btnSubmit = document.createElement("button");
-btnSubmit.setAttribute("class", "saveToDate");
-btnSubmit.setAttribute("type", "submit");
-btnSubmit.textContent = "Save";
-btnSubmit.addEventListener("click", addItemToData)
-
-function addItemToData(event){
-  event.preventDefault();
-  if (selectedAnswer()){
-    swal("Good job!", "You Saved the Question", "success");
-    let answered = document.querySelector('input[name="answerSelect"]:checked').value;
-    console.log(selectedAnswer());
-    temp.correctAnswer = answered;
-    myQuestions.push(temp);
-    console.log(myQuestions);
-    console.log(answered);
-    temp = {};
-    // Show menu ===========================
-    if (myQuestions.length > 1){
-      createMenu()
-    }
-    resetData();
-  }else{
-    swal("Oops...!", "You didn't select the right answer yet!", "error");
-  }
-  
-}
-
-function selectedAnswer(){
-  let allRadioAnswer = document.getElementsByName('answerSelect')
-  for (let a of allRadioAnswer){
-    if(a.checked){
-      return true;
-    }
-  }
-}
-
 
 // Home page ===============================
 let homePage = document.querySelector(".home-page");
@@ -566,7 +427,7 @@ function startQuiz(){
   }
 }
 
-
+// Create container to add the data in and display it as a quiz one question by one
 function loadData(){
   let oldContainer = document.getElementsByClassName("quizContainer")
   if (oldContainer.length > 0){
@@ -610,7 +471,7 @@ function loadData(){
 
   }
 }
-
+// Delete previous next button when clicked on the next button after selected an answer
 function nextBtn(){
   let oldBtn = document.getElementsByClassName("nextQ")
   if (oldBtn.length > 0){
@@ -629,8 +490,8 @@ function nextBtn(){
   document.body.appendChild(btnNext);
   btnNext.addEventListener("click", nextQuestion)
 }
-
-
+// User is at the last question and a button to show result shows up when user
+// already choosen an answer
 function btnShowResult(){
   clicked = false;
   checkAnswer = false;
@@ -639,10 +500,10 @@ function btnShowResult(){
   btnSubmit.addEventListener("click", showResult)
 }
 
+// Check if user has more questions to do or they are at the last question
 function nextQuestion(){
   if(myQuestions.length === index+1 && checkAnswer===true){
     document.querySelector(".nextQ").style.display = "none";
-    // btnShowResult();
     clicked = true;
   }
   if(myQuestions.length !== index+1 && checkAnswer===true){
@@ -652,7 +513,7 @@ function nextQuestion(){
   }
 }
 
-
+// Check whether the user have choosen an answer or not
 function checkedAnswer(event){
   // getIndexToDel()
   if (clicked === false){
@@ -662,7 +523,6 @@ function checkedAnswer(event){
     if (toCheck === "answer"){
       if (index+1 == myQuestions.length){
         btnShowResult()
-        // btnSubmit.style.display = "";
         document.querySelector(".nextQ").style.display = "none";
       }
     // Add button grey when can click +++++++++++++++++++++++++++++++++++++ 
@@ -687,19 +547,20 @@ function checkedAnswer(event){
   }
 }
 
+// Get the first letter of the selected answerchoice like a, b, c, d
 function checkedSentenceA(sen){
   let str = sen.textContent;
   console.log(str[0]);
   return str[0]
 }
 
-// function checkNumOfIndex()
+// Check for the correct answer choosen by the user
 function checkAnswerInData(getAn){
   if (myQuestions[index].correctAnswer == getAn){
     return true;
   }
 }
-
+// Display the result container
 function showResult(){
   document.querySelector(".quizContainer").style.display = "none";
   document.querySelector(".btnSubmitResult").style.display = "none";
@@ -711,7 +572,7 @@ function showResult(){
   score = 0;
   checkAnswer = false;
 }
-
+// Reset data after the question has been added
 function resetData(){
   document.getElementById("getQuestion").value = "";
   document.getElementsByClassName("getAnswer")[0].value = "";
@@ -723,7 +584,7 @@ function resetData(){
     radio[i].checked = false;
   }
 }
-
+// Reset data in the edit form page
 function resetDataEdit(){
   document.getElementById("getQuestionEdit").value = "";
   document.getElementsByClassName("getAnswerEdit")[0].value = "";
@@ -740,12 +601,13 @@ function resetDataEdit(){
 function saveMyQuestions(data){
   localStorage.setItem('myQuestions', JSON.stringify(data));
 }
-
+// Give a percentage of the amount of questions that you get right+++++++++++
 function sumScore(data){
   return (score/myQuestions.length * 100).toFixed(0) + "%"
 }
 
-
+// After you finish the test, a correction page will show up and you can see a 
+// summary of what question you get right or wrong
 document.querySelector(".showCorrection").addEventListener("click", showListCorrection)
 function showListCorrection(){
   myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
@@ -766,21 +628,15 @@ function showListCorrection(){
     listResultCon.appendChild(li);
   }
 }
-
+// Variables
 let index = 0;
 let indexOfQ = 0;
 let score = 0;
 let result = 0
 let clicked = false;
 let checkAnswer = false;
-
 let myQuestions = [];
-
-
-// if (index === myQuestions.length){
-//   document.querySelector(".finalResult").style.display = "";
-// }
-
+// Button to start your quiz
 let btn=document.getElementById("start");
 btn.addEventListener("click",displayOption);
 
