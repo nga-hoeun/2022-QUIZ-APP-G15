@@ -189,8 +189,6 @@ ul li{
     transform: translateY(-2px);
 }
 
-
-
 #home-page {
     display: flex;
     align-items: center;
@@ -549,10 +547,7 @@ ul li{
 .edition img{
     width: 23px;
 }
-/* .edition .imageEdit
-{
-    right: 15px;
-} */
+
 .edition .imageEdit,
 .edition .imageDelete
 {

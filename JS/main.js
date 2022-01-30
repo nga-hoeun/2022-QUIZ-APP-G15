@@ -23,6 +23,7 @@ document.querySelector(".btnSubmitResult").style.display = "none";
 // Come back to home page ======================
 let logo = document.querySelector('.logo')
 logo.addEventListener("click", displayOption)
+
 // display the page 
 function displayOption(){ 
     index = 0;
@@ -166,10 +167,9 @@ function addToArray(){
   
     temp.correctAnswer = correctAn;
     myQuestions.push(temp)
+    saveMyQuestions(myQuestions)
     resetData();
     // Save to localStorage ++++++++++++++++++++++++++++++++++++++++++ 
-    saveMyQuestions(myQuestions)
-    myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
   }else{
     if(checkValidationQ()===false){
       swal("Oops...!", "You had add this question before!", "error");
@@ -417,11 +417,10 @@ function editMyQuestion(){
 let homePage = document.querySelector(".home-page");
 function startQuiz(){
   index = 0;
-  myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
   // document.querySelector(".mainContainerEdit").style.display = "";
-  let oldContainer = document.querySelector(".newContainer");
   document.querySelector(".newContainer").style.display = "none"; 
   if (myQuestions.length !== 0 && localStorage.length > 0){
+    myQuestions = JSON.parse(localStorage.getItem('myQuestions'));
     loadData();
   }else{
     swal("Oops...!", "You don't have created Quiz Yet!", "error");
